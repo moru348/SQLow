@@ -2,10 +2,9 @@ package me.moru3;
 
 import com.sun.istack.internal.NotNull;
 import me.moru3.exceptions.NoPropertyException;
+import me.moru3.utils.Obj2Str;
 
-import static me.moru3.Utils.Obj2Str.obj2Str;
-
-public class Column {
+public class Column extends Obj2Str {
     private final String name;
     private final DataType<?> type;
     private Boolean notnull;
