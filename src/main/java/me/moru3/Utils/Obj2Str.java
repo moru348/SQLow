@@ -16,9 +16,9 @@ public abstract class Obj2Str {
         } else if (obj instanceof Set<?>) {
             StringBuilder result = new StringBuilder();
             ((Set<?>) obj).forEach(i -> {
-                result.append("\"").append(i).append("\"");
+                result.append(",\"").append(i).append("\"");
             });
-            return new String(result);
+            return new String(result).replaceFirst(",", "");
         }
         return "\"" + obj.toString() + "\"";
     }

@@ -49,15 +49,6 @@ public class DataType<T> extends Obj2Str {
     public Object getProperty() {return property;}
     public Integer getMaxLength() {return maxLength;}
 
-    public DataType(@NotNull String typeName, @NotNull Boolean unsigned, @NotNull Boolean zeroFill, @NotNull Boolean autoIncrement, @NotNull Boolean primaryKey, @NotNull Boolean defaultKey, @Nullable Object property) {
-        this.typeName = typeName;
-        this.allowUnsigned= unsigned;
-        this.allowZeroFill = zeroFill;
-        this.allowAutoIncrement = autoIncrement;
-        this.allowPrimaryKey = primaryKey;
-        this.allowDefault = defaultKey;
-        this.property = property;
-    }
     public DataType(@NotNull String typeName, @NotNull Boolean unsigned, @NotNull Boolean zeroFill, @NotNull Boolean autoIncrement, @NotNull Boolean primaryKey, @NotNull Boolean defaultKey, @Nullable Object property, Integer maxLength) {
         this.typeName = typeName;
         this.allowUnsigned= unsigned;
