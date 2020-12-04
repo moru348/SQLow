@@ -26,7 +26,6 @@ public class DataType<T> extends Obj2Str {
     public static DataType<Set<?>> SET = new DataType<>("SET", false, false, false, false, true);
 
 
-
     @NotNull
     private final String typeName;
 
