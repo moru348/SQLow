@@ -1,11 +1,11 @@
-package me.moru3.Utils;
+package me.moru3.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Set;
 
 public abstract class Obj2Str {
-    public static String obj2Str(Object obj) {
+    public String obj2Str(Object obj) {
         if(obj == null) {
             return "null";
         }

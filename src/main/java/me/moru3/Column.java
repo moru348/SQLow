@@ -4,7 +4,7 @@ import com.sun.istack.internal.NotNull;
 import me.moru3.exceptions.NoPropertyException;
 import me.moru3.utils.Obj2Str;
 
-public class Column extends Obj2Str {
+public class Column extends Obj2Str implements IColumn {
     private final String name;
     private final DataType<?> type;
     private Boolean notnull;
@@ -13,7 +13,7 @@ public class Column extends Obj2Str {
     private Boolean autoincrement;
     private Boolean primarykey;
     private Object defaultvalue;
-    private Boolean property;
+    private Object property;
 
     public Column(@NotNull String name, @NotNull DataType<?> type) {
         this.name = name;
@@ -25,18 +25,10 @@ public class Column extends Obj2Str {
         result.append("`").append(name).append("` ");
         switch (type.getTypeName()) {
             case "ENUM":
-                if(property!=null) {
-                    result.append("ENUM(").append(obj2Str(property)).append(")");
-                } else {
-                    throw new NoPropertyException("ENUM property is not set.");
-                }
+                if(property!=null) { result.append("ENUM(").append(obj2Str(property)).append(")"); } else { throw new NoPropertyException("ENUM property is not set."); }
                 break;
             case "SET":
-                if(property!=null) {
-                    result.append("SET(").append(obj2Str(property)).append(")");
-                } else {
-                    throw new NoPropertyException("ENUM property is not set.");
-                }
+                if(property!=null) { result.append("SET(").append(obj2Str(property)).append(")"); } else { throw new NoPropertyException("ENUM property is not set."); }
                 break;
             default:
                 if(property!=null) {
@@ -47,16 +39,8 @@ public class Column extends Obj2Str {
                     result.append(type.getTypeName());
                 }
         }
-        if(zerofill) {
-            if(type.getZeroFill()) {
-                result.append(" ZEROFILL");
-            }
-        }
-        if(unsigned) {
-            if(type.getUnsigned()) {
-                result.append(" UNSIGNED");
-            }
-        }
+        if(zerofill&&type.getZeroFill()) result.append(" ZEROFILL");
+        if(unsigned&&type.getUnsigned()) result.append(" UNSIGNED");
         if(notnull) {
             result.append(" NOT");
         } else {
@@ -65,42 +49,42 @@ public class Column extends Obj2Str {
             }
         }
         result.append(" NULL");
-        if(autoincrement) {
-            if(type.getAutoIncrement()) {
-                result.append(" AUTO_INCREMENT");
-            }
+        if(autoincrement&&type.getAutoIncrement()) result.append(" AUTO_INCREMENT");
+        if(defaultvalue!=null&&type.getDefault()) {
+            result.append(" DEFAULT ").append(obj2Str(defaultvalue));
         }
         return new String(result);
     }
 
-    public Column setNotNull(boolean sel) {
+    public Column setNotNull(Boolean bool) {
+        notnull = bool;
         return this;
     }
 
-    public Column setUnsigned(boolean sel) {
+    public Column setUnsigned(Boolean bool) {
         if(type.getUnsigned()) {
-            this.unsigned = sel;
+            this.unsigned = bool;
         }
         return this;
     }
 
-    public Column setZeroFill(boolean sel) {
+    public Column setZeroFill(Boolean bool) {
         if(type.getZeroFill()) {
-            this.zerofill = sel;
+            this.zerofill = bool;
         }
         return this;
     }
 
-    public Column setAutoIncrement(Boolean sel) {
+    public Column setAutoIncrement(Boolean bool) {
         if(type.getAutoIncrement()) {
-            this.autoincrement = sel;
+            this.autoincrement = bool;
         }
         return this;
     }
 
-    public Column setPrimaryKey(Boolean sel) {
+    public Column setPrimaryKey(Boolean bool) {
         if(type.getPrimaryKey()) {
-            this.primarykey = sel;
+            this.primarykey = bool;
         }
         return this;
     }
@@ -112,8 +96,8 @@ public class Column extends Obj2Str {
         return this;
     }
 
-    public Column setProperty(Boolean sel) {
-        this.property = sel;
+    public Column setProperty(Object obj) {
+        this.property = obj;
         return this;
     }
 }
