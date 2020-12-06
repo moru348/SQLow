@@ -7,11 +7,11 @@ import me.moru3.utils.Obj2Str;
 public class Column extends Obj2Str implements IColumn {
     private final String name;
     private final DataType<?> type;
-    private Boolean notnull;
-    private Boolean unsigned;
-    private Boolean zerofill;
-    private Boolean autoincrement;
-    private Boolean primarykey;
+    private boolean notnull;
+    private boolean unsigned;
+    private boolean zerofill;
+    private boolean autoincrement;
+    private boolean primarykey;
     private Object defaultvalue;
     private Object property;
 
@@ -56,36 +56,60 @@ public class Column extends Obj2Str implements IColumn {
         return new String(result);
     }
 
-    public Column setNotNull(Boolean bool) {
+    public Column setNotNull(boolean bool) {
         notnull = bool;
         return this;
     }
 
-    public Column setUnsigned(Boolean bool) {
+    public boolean isNotNull() {
+        return notnull;
+    }
+
+    public Column setUnsigned(boolean bool) {
         if(type.getUnsigned()) {
             this.unsigned = bool;
         }
         return this;
     }
 
-    public Column setZeroFill(Boolean bool) {
+    public boolean isUnsigned() {
+        return unsigned;
+    }
+
+    public Column setZeroFill(boolean bool) {
         if(type.getZeroFill()) {
             this.zerofill = bool;
         }
         return this;
     }
 
-    public Column setAutoIncrement(Boolean bool) {
+    public boolean isZeroFill() {
+        return zerofill;
+    }
+
+    public Column setAutoIncrement(boolean bool) {
         if(type.getAutoIncrement()) {
             this.autoincrement = bool;
         }
         return this;
     }
 
-    public Column setPrimaryKey(Boolean bool) {
+    public boolean isAutoIncrement() {
+        return autoincrement;
+    }
+
+    public Column setPrimaryKey(boolean bool) {
         if(type.getPrimaryKey()) {
             this.primarykey = bool;
         }
+        return this;
+    }
+
+    public boolean isPrimaryKey() {
+        return primarykey;
+    }
+
+    public Column setDefaultValue(Object obj) {
         return this;
     }
 

@@ -16,7 +16,7 @@ public class DataType<T> extends Obj2Str {
     public static DataType<Long> BIGINT = new DataType<>("BIGINT", true, true, true, true, true);
     public static DataType<Float> FLOAT = new DataType<>("FLOAT", true, true, true, true, true);
     public static DataType<Double> DOUBLE = new DataType<>("DOUBLE", true, true, true, true, true);
-    public static DataType<Boolean> BOOLEAN = new DataType<>("BOOLEAN", false, false, false, false, true);
+    public static DataType<Boolean> BOOLEAN = new DataType<>("boolean", false, false, false, false, true);
     public static DataType<Date> DATETIME = new DataType<>("DATETIME", false, false, false, true, true);
     public static DataType<Date> DATE = new DataType<>("DATE", false, false, false, true, true);
     public static DataType<Date> TIME = new DataType<>("TIME", false, false, false, true, true);
@@ -29,26 +29,26 @@ public class DataType<T> extends Obj2Str {
     @NotNull
     private final String typeName;
 
-    private final Boolean allowUnsigned;
-    private final Boolean allowZeroFill;
-    private final Boolean allowAutoIncrement;
-    private final Boolean allowPrimaryKey;
-    private final Boolean allowDefault;
-    private Integer maxLength;
+    private final boolean allowUnsigned;
+    private final boolean allowZeroFill;
+    private final boolean allowAutoIncrement;
+    private final boolean allowPrimaryKey;
+    private final boolean allowDefault;
+    private int maxLength;
 
     @Nullable
     private Object property;
 
     public String getTypeName() {return typeName;}
-    public Boolean getUnsigned() {return allowUnsigned;}
-    public Boolean getZeroFill() {return allowZeroFill;}
-    public Boolean getAutoIncrement() {return allowAutoIncrement;}
-    public Boolean getPrimaryKey() {return allowPrimaryKey;}
-    public Boolean getDefault() {return allowDefault;}
+    public boolean getUnsigned() {return allowUnsigned;}
+    public boolean getZeroFill() {return allowZeroFill;}
+    public boolean getAutoIncrement() {return allowAutoIncrement;}
+    public boolean getPrimaryKey() {return allowPrimaryKey;}
+    public boolean getDefault() {return allowDefault;}
     public Object getProperty() {return property;}
-    public Integer getMaxLength() {return maxLength;}
+    public int getMaxLength() {return maxLength;}
 
-    public DataType(@NotNull String typeName, @NotNull Boolean unsigned, @NotNull Boolean zeroFill, @NotNull Boolean autoIncrement, @NotNull Boolean primaryKey, @NotNull Boolean defaultKey, @Nullable Object property, Integer maxLength) {
+    public DataType(@NotNull String typeName, @NotNull boolean unsigned, @NotNull boolean zeroFill, @NotNull boolean autoIncrement, @NotNull boolean primaryKey, @NotNull boolean defaultKey, @Nullable Object property, int maxLength) {
         this.typeName = typeName;
         this.allowUnsigned= unsigned;
         this.allowZeroFill = zeroFill;
@@ -58,7 +58,8 @@ public class DataType<T> extends Obj2Str {
         this.property = property;
         this.maxLength = maxLength;
     }
-    public DataType(@NotNull String typeName, @NotNull Boolean unsigned, @NotNull Boolean zeroFill, @NotNull Boolean autoIncrement, @NotNull Boolean primaryKey, @NotNull Boolean defaultKey) {
+
+    public DataType(@NotNull String typeName, @NotNull boolean unsigned, @NotNull boolean zeroFill, @NotNull boolean autoIncrement, @NotNull boolean primaryKey, @NotNull boolean defaultKey) {
         this.typeName = typeName;
         this.allowUnsigned= unsigned;
         this.allowZeroFill = zeroFill;

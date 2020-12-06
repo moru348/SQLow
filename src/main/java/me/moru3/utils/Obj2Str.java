@@ -9,7 +9,7 @@ public abstract class Obj2Str {
         if(obj == null) {
             return "null";
         }
-        if(obj instanceof Byte || obj instanceof Double || obj instanceof java.math.BigInteger) {
+        if(obj instanceof Long || obj instanceof Double || obj instanceof java.math.BigInteger) {
             return obj.toString();
         } else if (obj instanceof Date) {
             return "\"" + new SimpleDateFormat("yyyy/MM/dd E HH:mm:ss").format((Date) obj) + "\"";
