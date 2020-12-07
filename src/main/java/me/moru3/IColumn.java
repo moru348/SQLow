@@ -12,6 +12,8 @@ public interface IColumn {
      */
     String build() throws NoPropertyException;
 
+    String getName();
+
     /**
      * Whether to make it Not Null
      * @return column

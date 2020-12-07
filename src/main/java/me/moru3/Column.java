@@ -25,7 +25,7 @@ public class Column extends Obj2Str implements IColumn {
         result.append("`").append(name).append("` ");
         switch (type.getTypeName()) {
             case "ENUM":
-                if(property!=null) { result.append("ENUM(").append(obj2Str(property)).append(")"); } else { throw new NoPropertyException("ENUM property is not set."); }
+                if(property!=null) { result.append("ENUM(").append(obj2Str(type.)).append(")"); } else { throw new NoPropertyException("ENUM property is not set."); }
                 break;
             case "SET":
                 if(property!=null) { result.append("SET(").append(obj2Str(property)).append(")"); } else { throw new NoPropertyException("ENUM property is not set."); }
@@ -54,6 +54,10 @@ public class Column extends Obj2Str implements IColumn {
             result.append(" DEFAULT ").append(obj2Str(defaultvalue));
         }
         return new String(result);
+    }
+
+    public String getName() {
+        return name;
     }
 
     public Column setNotNull(boolean bool) {

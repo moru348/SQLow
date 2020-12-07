@@ -2,30 +2,28 @@ package me.moru3;
 
 import me.moru3.exceptions.NoPropertyException;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class Table {
-    private List<Column> columns;
-    private String name;
+    private final List<Column> columns;
+    private final String name;
+
     public Table(String name, List<Column> columns) {
         this.columns = columns;
         this.name = name;
     }
-    public String build(boolean force) {
-        ArrayList<Exception> ex = new ArrayList<>();
+
+    public String build(boolean force) throws IllegalArgumentException, NoPropertyException {
         StringBuilder result = new StringBuilder();
-        result.append("TABLE CREATE ").append(force ? "":"IF NOT EXISTS ").append(name).append(" (");
-        Column[] primarykeys = columns.stream().filter(Column::isPrimaryKey).toArray(Column[]::new);
-        if(primarykeys.length>1) throw new IllegalArgumentException("Only 1 Primary Key can be set for each table.");
-        columns.forEach((table) -> {
-            try {
-                table.build();
-            } catch (NoPropertyException e) {
-                Objects.requireNonNull(ex).add(e);
-            }
-        });
+        result.append("TABLE CREATE ").append(force ? "" + name:"IF NOT EXISTS " + name).append(name).append(" (");
+        Column[] primaryKeys = columns.stream().filter(Column::isPrimaryKey).toArray(Column[]::new);
+        if(primaryKeys.length>1) throw new IllegalArgumentException("Only 1 Primary Key can be set for each table.");
+        Column primaryKey = primaryKeys[0];
+        for (Column table : columns) {
+            result.append(table.build()).append(columns.indexOf(table) == columns.size() && primaryKey==null ? "" : ",");
+        }
+        if(primaryKey!=null) result.append(" PRIMARY KEY (").append(primaryKey.getName()).append(")");
+
         return new String(result);
     }
 }
