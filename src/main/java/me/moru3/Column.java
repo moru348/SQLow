@@ -6,16 +6,16 @@ import me.moru3.utils.Obj2Str;
 
 public class Column extends Obj2Str implements IColumn {
     private final String name;
-    private final DataType<?> type;
+    private final DataType type;
     private boolean notnull;
-    private boolean unsigned;
+    // private boolean unsigned;
     private boolean zerofill;
     private boolean autoincrement;
     private boolean primarykey;
     private Object defaultvalue;
     private Object property;
 
-    public Column(@NotNull String name, @NotNull DataType<?> type) {
+    public Column(@NotNull String name, @NotNull DataType type) {
         this.name = name;
         this.type = type;
     }
@@ -40,7 +40,7 @@ public class Column extends Obj2Str implements IColumn {
                 }
         }
         if(zerofill&&type.getZeroFill()) result.append(" ZEROFILL");
-        if(unsigned&&type.getUnsigned()) result.append(" UNSIGNED");
+        // if(unsigned&&type.getUnsigned()) result.append(" UNSIGNED");
         if(notnull) {
             result.append(" NOT");
         } else {
@@ -69,16 +69,16 @@ public class Column extends Obj2Str implements IColumn {
         return notnull;
     }
 
-    public Column setUnsigned(boolean bool) {
-        if(type.getUnsigned()) {
-            this.unsigned = bool;
-        }
-        return this;
-    }
+    //public Column setUnsigned(boolean bool) {
+    //    if(type.getUnsigned()) {
+    //        this.unsigned = bool;
+    //    }
+    //    return this;
+    //}
 
-    public boolean isUnsigned() {
-        return unsigned;
-    }
+    //public boolean isUnsigned() {
+    //    return unsigned;
+    //}
 
     public Column setZeroFill(boolean bool) {
         if(type.getZeroFill()) {

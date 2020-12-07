@@ -22,13 +22,10 @@ public interface IColumn {
 
     boolean isNotNull();
 
-    /**
-     * @param bool Whether to make it unsigned
-     * @return column
-     */
-    Column setUnsigned(boolean bool);
+    //Column setUnsigned(boolean bool);
 
-    boolean isUnsigned();
+    //boolean isUnsigned();
+
 
     /**
      * @param bool Whether to make it zerofill
