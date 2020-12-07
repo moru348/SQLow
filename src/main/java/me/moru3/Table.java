@@ -17,6 +17,8 @@ public class Table {
         ArrayList<Exception> ex = new ArrayList<>();
         StringBuilder result = new StringBuilder();
         result.append("TABLE CREATE ").append(force ? "":"IF NOT EXISTS ").append(name).append(" (");
+        Column[] primarykeys = columns.stream().filter(Column::isPrimaryKey).toArray(Column[]::new);
+        if(primarykeys.length>1) throw new IllegalArgumentException("Only 1 Primary Key can be set for each table.");
         columns.forEach((table) -> {
             try {
                 table.build();
