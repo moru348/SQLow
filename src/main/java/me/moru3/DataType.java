@@ -35,23 +35,40 @@ public class DataType<T> extends Obj2Str {
     private final boolean allowAutoIncrement;
     private final boolean allowPrimaryKey;
     private final boolean allowDefault;
-    private final Function<T, String> convM;
+    private final Function<Object, String> convM;
     private int maxLength;
 
     @Nullable
     private Object property;
 
+    @NotNull
     public String getTypeName() {return typeName;}
-    public boolean getUnsigned() {return allowUnsigned;}
-    public boolean getZeroFill() {return allowZeroFill;}
-    public boolean getAutoIncrement() {return allowAutoIncrement;}
-    public boolean getPrimaryKey() {return allowPrimaryKey;}
-    public boolean getDefault() {return allowDefault;}
-    public Object getProperty() {return property;}
-    public int getMaxLength() {return maxLength;}
-    public Function<T, String> getConvM() {return convM;}
 
-    public DataType(@NotNull String typeName, @NotNull boolean unsigned, @NotNull boolean zeroFill, @NotNull boolean autoIncrement, @NotNull boolean primaryKey, @NotNull boolean defaultKey, @Nullable Object property, int maxLength, Function<T, String> convM) {
+    @NotNull
+    public boolean getUnsigned() {return allowUnsigned;}
+
+    @NotNull
+    public boolean getZeroFill() {return allowZeroFill;}
+
+    @NotNull
+    public boolean getAutoIncrement() {return allowAutoIncrement;}
+
+    @NotNull
+    public boolean getPrimaryKey() {return allowPrimaryKey;}
+
+    @NotNull
+    public boolean getDefault() {return allowDefault;}
+
+    @NotNull
+    public Object getProperty() {return property;}
+
+    @Nullable
+    public int getMaxLength() {return maxLength;}
+
+    @NotNull
+    public Function<Object, String> getConvM() {return convM;}
+
+    public DataType(@NotNull String typeName, @NotNull boolean unsigned, @NotNull boolean zeroFill, @NotNull boolean autoIncrement, @NotNull boolean primaryKey, @NotNull boolean defaultKey, @Nullable Object property, @NotNull int maxLength, @NotNull Function<Object, String> convM) {
         this.typeName = typeName;
         this.allowUnsigned= unsigned;
         this.allowZeroFill = zeroFill;
@@ -63,7 +80,7 @@ public class DataType<T> extends Obj2Str {
         this.convM = convM;
     }
 
-    public DataType(@NotNull String typeName, @NotNull boolean unsigned, @NotNull boolean zeroFill, @NotNull boolean autoIncrement, @NotNull boolean primaryKey, @NotNull boolean defaultKey, Function<T, String> convM) {
+    public DataType(@NotNull String typeName, @NotNull boolean unsigned, @NotNull boolean zeroFill, @NotNull boolean autoIncrement, @NotNull boolean primaryKey, @NotNull boolean defaultKey, @NotNull Function<Object, String> convM) {
         this.typeName = typeName;
         this.allowUnsigned= unsigned;
         this.allowZeroFill = zeroFill;

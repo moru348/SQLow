@@ -25,16 +25,16 @@ public class Column extends Obj2Str implements IColumn {
         result.append("`").append(name).append("` ");
         switch (type.getTypeName()) {
             case "ENUM":
-                if(property!=null) { result.append("ENUM(").append(obj2Str(type.)).append(")"); } else { throw new NoPropertyException("ENUM property is not set."); }
+                if(property!=null) { result.append("ENUM(").append(type.getConvM().apply(property)).append(")"); } else { throw new NoPropertyException("ENUM property is not set."); }
                 break;
             case "SET":
-                if(property!=null) { result.append("SET(").append(obj2Str(property)).append(")"); } else { throw new NoPropertyException("ENUM property is not set."); }
+                if(property!=null) { result.append("SET(").append(type.getConvM().apply(property)).append(")"); } else { throw new NoPropertyException("ENUM property is not set."); }
                 break;
             default:
                 if(property!=null) {
-                    result.append(type.getTypeName()).append("(").append(obj2Str(property)).append(")");
+                    result.append(type.getTypeName()).append("(").append(type.getConvM().apply(property)).append(")");
                 } else if (type.getProperty()!=null) {
-                    result.append(type.getTypeName()).append("(").append(obj2Str(type.getProperty())).append(")");
+                    result.append(type.getTypeName()).append("(").append(type.getConvM().apply(property)).append(")");
                 } else {
                     result.append(type.getTypeName());
                 }
@@ -51,7 +51,7 @@ public class Column extends Obj2Str implements IColumn {
         result.append(" NULL");
         if(autoincrement&&type.getAutoIncrement()) result.append(" AUTO_INCREMENT");
         if(defaultvalue!=null&&type.getDefault()) {
-            result.append(" DEFAULT ").append(obj2Str(defaultvalue));
+            result.append(" DEFAULT ").append(type.getConvM().apply(property));
         }
         return new String(result);
     }
