@@ -72,9 +72,4 @@ public class DataType<T> extends Obj2Str {
         this.allowDefault = defaultKey;
         this.convM = convM;
     }
-
-    @Override
-    public String toString() {
-        return "DataType{typename=\"" + getTypeName() + "\",unsigned=\"" + getUnsigned() + "\",zerofill=\"" + getZeroFill() + "\",autoincrement=\"" + getAutoIncrement() + "\",primarykey=\"" + getPrimaryKey() + "\",default=\"" + getDefault() + "\",property=" + obj2Str(getProperty()) + ",maxLength=" + obj2Str(getMaxLength()) + "}";
-    }
 }
