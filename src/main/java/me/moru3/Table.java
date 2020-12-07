@@ -2,9 +2,11 @@ package me.moru3;
 
 import me.moru3.exceptions.NoPropertyException;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 
-public class Table {
+public class Table implements ITable {
     private final List<Column> columns;
     private final String name;
 
@@ -23,6 +25,17 @@ public class Table {
             result.append(table.build()).append(columns.indexOf(table) == columns.size() && primaryKey==null ? "" : ",");
         }
         if(primaryKey!=null) result.append(" PRIMARY KEY (").append(primaryKey.getName()).append(")");
+        result.append(";");
         return new String(result);
+    }
+
+    public void send(boolean force) throws IllegalArgumentException, NoPropertyException, SQLException {
+        if(SQLow.connection==null) throw new NoPropertyException("No connection has been created with SQ Low (Connection).");
+        PreparedStatement ps = SQLow.connection.prepareStatement(build(force));
+        ps.executeUpdate();
+    }
+
+    public void send() throws IllegalArgumentException, NoPropertyException, SQLException {
+        send(false);
     }
 }

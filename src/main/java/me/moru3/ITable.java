@@ -2,6 +2,8 @@ package me.moru3;
 
 import me.moru3.exceptions.NoPropertyException;
 
+import java.sql.SQLException;
+
 public interface ITable {
 
     /**
@@ -9,5 +11,9 @@ public interface ITable {
      * @return converted SQL syntax.
      * @throws NoPropertyException If the property is not set for the Data Type that requires the property
      */
-    String build() throws NoPropertyException;
+    String build(boolean force) throws IllegalArgumentException, NoPropertyException;
+
+    void send(boolean force) throws IllegalArgumentException, NoPropertyException, SQLException;
+
+    void send() throws IllegalArgumentException, NoPropertyException, SQLException;
 }
