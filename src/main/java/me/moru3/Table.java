@@ -23,7 +23,6 @@ public class Table {
             result.append(table.build()).append(columns.indexOf(table) == columns.size() && primaryKey==null ? "" : ",");
         }
         if(primaryKey!=null) result.append(" PRIMARY KEY (").append(primaryKey.getName()).append(")");
-
         return new String(result);
     }
 }
