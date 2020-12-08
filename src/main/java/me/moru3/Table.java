@@ -5,7 +5,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.StringJoiner;
 
@@ -26,15 +25,15 @@ public class Table implements ITable {
         Column primaryKey = primaryKeys[0];
         StringJoiner columnList = new StringJoiner(", ");
         Arrays.stream(columns).map(Column::build).forEach(columnList::add);
-        if(primaryKey!=null) result.append("PRIMARY KEY (").append(primaryKey.getName()).append(")");
+        if(primaryKey!=null) columnList.add("PRIMARY KEY (" + primaryKey.getName() + ")");
         result.append(columnList).append(")");
         result.append(";");
         return new String(result);
     }
 
     public void send(boolean force) throws IllegalArgumentException, NoPropertyException, SQLException {
-        if(SQLow.connection==null) throw new NoPropertyException("No connection has been created with SQ Low (Connection).");
-        PreparedStatement ps = SQLow.connection.prepareStatement(build(force));
+        if(SQLow.getConnection()==null) throw new NoPropertyException("No connection has been created with SQ Low (Connection).");
+        PreparedStatement ps = SQLow.getConnection().prepareStatement(build(force));
         ps.executeUpdate();
     }
 

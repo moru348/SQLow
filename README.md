@@ -12,3 +12,6 @@
 <br>
 ```DataType<ItemStack> = new DataType<>(TEXT", false, false, false, false, false, Conv::itemStack2SQLObj);```
 <br>※オリジナルの型の定義方法はいつか変える予定です。
+<br><br>
+SQLiteについて。<br>
+SQLiteはDatabaseTypeを使用せずにnew SQLow("sqlow", "root")のように使用してください。

@@ -53,7 +53,7 @@ public interface IColumn {
      * @param obj If you need a default value, set it.
      * @return column
      */
-    Column setDefaultValue(@NotNull Object obj);
+    Column setDefault(@NotNull Object obj);
 
     /**
      * @param obj Set the property if needed.

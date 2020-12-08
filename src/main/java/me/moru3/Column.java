@@ -1,10 +1,8 @@
 package me.moru3;
 
-import me.moru3.exceptions.NoPropertyException;
-import me.moru3.utils.Obj2Str;
 import org.jetbrains.annotations.NotNull;
 
-public class Column extends Obj2Str implements IColumn {
+public class Column implements IColumn {
     private final String name;
     private final DataType<?> type;
     private boolean notnull;
@@ -104,18 +102,14 @@ public class Column extends Obj2Str implements IColumn {
         return primarykey;
     }
 
-    public Column setDefaultValue(Object obj) {
-        return this;
-    }
-
-    public Column setDefault(Object obj) {
+    public Column setDefault(@NotNull Object obj) {
         if(type.getDefault()) {
             this.defaultvalue = obj;
         }
         return this;
     }
 
-    public Column setProperty(Object obj) {
+    public Column setProperty(@NotNull Object obj) {
         this.property = obj;
         return this;
     }
