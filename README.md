@@ -8,9 +8,9 @@
 <br>
 ### ・拡張性
 <b>オリジナルの型を追加しString, Intなど以外に独自の型も使用できます。</b><br><br>
-例: ここでは Conv クラス上に String itemStack2SQLObj(Object itemStack) メソッドがあると仮定しています。<br>※ItemStackはBukkitPluginのオリジナルの型です
+例: ここでは Conv クラス上に String convIS(Object itemStack) メソッドがあると仮定しています。<br>※ItemStackはBukkitPluginのオリジナルの型です
 <br>
-```DataType<ItemStack> = new DataType<>(TEXT", false, false, false, false, false, Conv::itemStack2SQLObj);```
+```DataType<?> ITEMSTACK = new DataType<>("LONGTEXT", false, false, false, false, false, 2147483647, Conv::convIS, ItemStack.class, 110);```
 <br>※オリジナルの型の定義方法はいつか変える予定です。
 <br><br>
 SQLiteについて。<br>

@@ -1,30 +1,29 @@
 package me.moru3;
 
-import me.moru3.utils.Obj2Str;
+import me.moru3.utils.ObjConv;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Function;
 
 public class DataType<T> {
-    public final static DataType<?> TINYINT = new DataType<>("TINYINT", true, true, true, true, true, Object::toString, Byte.class);
-    public final static DataType<?> SMALLINT = new DataType<>("SHORT", true, true, true, true, true, Object::toString, Short.class);
-    public final static DataType<?> MEDIUMINT = new DataType<>("MEDIUMINT", true, true, true, true, true, Object::toString, Integer.class);
-    public final static DataType<?> INT = new DataType<>("INT", true, true, true, true, true, Object::toString, Integer.class);
-    public final static DataType<?> BIGINT = new DataType<>("BIGINT", true, true, true, true, true, Object::toString, Long.class);
-    public final static DataType<?> FLOAT = new DataType<>("FLOAT", true, true, true, true, true, Object::toString, Float.class);
-    public final static DataType<?> DOUBLE = new DataType<>("DOUBLE", true, true, true, true, true, Object::toString, Double.class);
-    public final static DataType<?> BOOLEAN = new DataType<>("boolean", false, false, false, false, true, Object::toString, Boolean.class);
-    public final static DataType<?> DATETIME = new DataType<>("DATETIME", false, false, false, true, true, Obj2Str::convDateTime, Date.class);
-    public final static DataType<?> DATE = new DataType<>("DATE", false, false, false, true, true, Obj2Str::convDate, Date.class);
-    public final static DataType<?> TIME = new DataType<>("TIME", false, false, false, true, true, Obj2Str::convTime, Date.class);
-    public final static DataType<?> VARCHAR = new DataType<>("VARCHAR", false, false, false, false, true, 255, 65535, Obj2Str::convString, String.class);
-    public final static DataType<?> TEXT = new DataType<>("TEXT", false, false, false, false, false, 255, 14090025, Obj2Str::convString, String.class);
+    public final static DataType<?> TINYINT = new DataType<>("TINYINT", true, true, true, true, true, null, Object::toString, Byte.class, 100);
+    public final static DataType<?> SMALLINT = new DataType<>("SHORT", true, true, true, true, true, null, Object::toString, Short.class, 101);
+    public final static DataType<?> MEDIUMINT = new DataType<>("MEDIUMINT", true, true, true, true, true, null, Object::toString, Integer.class, 102);
+    public final static DataType<?> INT = new DataType<>("INT", true, true, true, true, true, null, Object::toString, Integer.class, 103);
+    public final static DataType<?> BIGINT = new DataType<>("BIGINT", true, true, true, true, true, null, Object::toString, Long.class, 104);
+    public final static DataType<?> FLOAT = new DataType<>("FLOAT", true, true, true, true, true, null, Object::toString, Float.class, 100);
+    public final static DataType<?> DOUBLE = new DataType<>("DOUBLE", true, true, true, true, true, null, Object::toString, Double.class, 101);
+    public final static DataType<?> BOOLEAN = new DataType<>("boolean", false, false, false, false, true, null, Object::toString, Boolean.class, 100);
+    public final static DataType<?> DATETIME = new DataType<>("DATETIME", false, false, false, true, true, null, ObjConv::convDateTime, Date.class, 100);
+    public final static DataType<?> DATE = new DataType<>("DATE", false, false, false, true, true, null, ObjConv::convDate, Date.class, 101);
+    public final static DataType<?> TIME = new DataType<>("TIME", false, false, false, true, true, null, ObjConv::convTime, Date.class, 102);
+    public final static DataType<?> VARCHAR = new DataType<>("VARCHAR", false, false, false, false, true, 255, ObjConv::convString, String.class, 110);
+    public final static DataType<?> TEXT = new DataType<>("TEXT", false, false, false, false, false, 65535,  ObjConv::convString, String.class, 110);
+    public final static DataType<?> LONGTEXT = new DataType<>("LONGTEXT", false, false, false, false, false, 	2147483647, ObjConv::convString, String.class, 110);
 
-    public static Set<DataType<?>> dataTypes = new HashSet<>();
+    public static TreeMap<Integer, List<DataType<?>>> dataTypes = new TreeMap<>();
 
     @NotNull
     private final String typeName;
@@ -35,7 +34,6 @@ public class DataType<T> {
     private final boolean allowPrimaryKey;
     private final boolean allowDefault;
     private final Function<Object, String> convM;
-    private int maxLength;
     private final Class<T> typeClass;
 
 
@@ -57,26 +55,11 @@ public class DataType<T> {
 
     public @Nullable Object getProperty() {return property;}
 
-    public int getMaxLength() {return maxLength;}
-
     public Function<Object, String> getConvM() {return convM;}
 
     public Class<T> toClass() {return typeClass;}
 
-    private DataType(@NotNull String typeName, boolean unsigned, boolean zeroFill, boolean autoIncrement, boolean primaryKey, boolean defaultKey, @Nullable Object property, int maxLength, @NotNull Function<Object, String> convM, @NotNull Class<T> typeClass) {
-        this.typeName = typeName;
-        this.allowUnsigned= unsigned;
-        this.allowZeroFill = zeroFill;
-        this.allowAutoIncrement = autoIncrement;
-        this.allowPrimaryKey = primaryKey;
-        this.allowDefault = defaultKey;
-        this.property = property;
-        this.maxLength = maxLength;
-        this.convM = convM;
-        this.typeClass = typeClass;
-    }
-
-    private DataType(@NotNull String typeName, boolean unsigned, boolean zeroFill, boolean autoIncrement, boolean primaryKey, boolean defaultKey, @NotNull Function<Object, String> convM, @NotNull Class<T> typeClass) {
+    private DataType(@NotNull String typeName, boolean unsigned, boolean zeroFill, boolean autoIncrement, boolean primaryKey, boolean defaultKey, @Nullable Object property, @NotNull Function<Object, String> convM, @NotNull Class<T> typeClass, int priority) {
         this.typeName = typeName;
         this.allowUnsigned= unsigned;
         this.allowZeroFill = zeroFill;
@@ -85,5 +68,14 @@ public class DataType<T> {
         this.allowDefault = defaultKey;
         this.convM = convM;
         this.typeClass = typeClass;
+        if(dataTypes.get(priority)!=null) {
+            List<DataType<?>> temp = dataTypes.get(priority);
+            temp.add(this);
+            dataTypes.put(priority, temp);
+        } else {
+            List<DataType<?>> temp = new ArrayList<>();
+            temp.add(this);
+            dataTypes.put(priority, temp);
+        }
     }
 }
