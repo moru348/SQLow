@@ -1,8 +1,8 @@
 package me.moru3;
 
-import com.sun.istack.internal.NotNull;
-import com.sun.istack.internal.Nullable;
 import me.moru3.utils.Obj2Str;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Date;
 import java.util.function.Function;
@@ -41,34 +41,25 @@ public class DataType<T> {
     @NotNull
     public String getTypeName() {return typeName;}
 
-    @NotNull
     public boolean getUnsigned() {return allowUnsigned;}
 
-    @NotNull
     public boolean getZeroFill() {return allowZeroFill;}
 
-    @NotNull
     public boolean getAutoIncrement() {return allowAutoIncrement;}
 
-    @NotNull
     public boolean getPrimaryKey() {return allowPrimaryKey;}
 
-    @NotNull
     public boolean getDefault() {return allowDefault;}
 
-    @NotNull
-    public Object getProperty() {return property;}
+    public @Nullable Object getProperty() {return property;}
 
-    @Nullable
     public int getMaxLength() {return maxLength;}
 
-    @NotNull
     public Function<Object, String> getConvM() {return convM;}
 
-    @NotNull
     public Class<T> toClass() {return typeClass;}
 
-    private DataType(@NotNull String typeName, @NotNull boolean unsigned, @NotNull boolean zeroFill, @NotNull boolean autoIncrement, @NotNull boolean primaryKey, @NotNull boolean defaultKey, @Nullable Object property, @NotNull int maxLength, @NotNull Function<Object, String> convM, @NotNull Class<T> typeClass) {
+    private DataType(@NotNull String typeName, boolean unsigned, boolean zeroFill, boolean autoIncrement, boolean primaryKey, boolean defaultKey, @Nullable Object property, int maxLength, @NotNull Function<Object, String> convM, @NotNull Class<T> typeClass) {
         this.typeName = typeName;
         this.allowUnsigned= unsigned;
         this.allowZeroFill = zeroFill;
@@ -81,7 +72,7 @@ public class DataType<T> {
         this.typeClass = typeClass;
     }
 
-    private DataType(@NotNull String typeName, @NotNull boolean unsigned, @NotNull boolean zeroFill, @NotNull boolean autoIncrement, @NotNull boolean primaryKey, @NotNull boolean defaultKey, @NotNull Function<Object, String> convM, @NotNull Class<T> typeClass) {
+    private DataType(@NotNull String typeName, boolean unsigned, boolean zeroFill, boolean autoIncrement, boolean primaryKey, boolean defaultKey, @NotNull Function<Object, String> convM, @NotNull Class<T> typeClass) {
         this.typeName = typeName;
         this.allowUnsigned= unsigned;
         this.allowZeroFill = zeroFill;

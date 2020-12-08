@@ -1,6 +1,6 @@
 package me.moru3;
 
-import com.sun.istack.internal.NotNull;
+import org.jetbrains.annotations.NotNull;
 
 import java.sql.Connection;
 

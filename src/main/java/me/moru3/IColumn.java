@@ -1,16 +1,14 @@
 package me.moru3;
 
-import com.sun.istack.internal.NotNull;
-import me.moru3.exceptions.NoPropertyException;
+import org.jetbrains.annotations.NotNull;
 
 public interface IColumn {
 
     /**
      * Convert Column to SQL syntax.
      * @return converted SQL syntax.
-     * @throws NoPropertyException If the property is not set for the Data Type that requires the property
      */
-    String build() throws NoPropertyException;
+    String build();
 
     String getName();
 
