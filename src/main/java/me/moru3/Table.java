@@ -5,7 +5,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.StringJoiner;
 
 public class Table implements ITable {
     private final Column[] columns;
@@ -22,7 +24,9 @@ public class Table implements ITable {
         Column[] primaryKeys = Arrays.stream(columns).filter(Column::isPrimaryKey).toArray(Column[]::new);
         if(primaryKeys.length>1) throw new IllegalArgumentException("Only 1 Primary Key can be set for each table.");
         Column primaryKey = primaryKeys[0];
-        Arrays.stream(columns).map(Column::build);
+        StringJoiner columnList = new StringJoiner(",");
+        Arrays.stream(columns).map(Column::build).forEach(columnList::add);
+        result.append(columnList);
         if(primaryKey!=null) result.append(", PRIMARY KEY (").append(primaryKey.getName()).append(")");
         result.append(";");
         return new String(result);
