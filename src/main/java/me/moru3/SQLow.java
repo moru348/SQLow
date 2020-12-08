@@ -22,6 +22,21 @@ public class SQLow {
         return DriverManager.getConnection(url, user, password);
     }
 
+    public static Connection connect(DatabaseType dbtype, String host, String userName, String password, String databaseName, TreeMap<String, String> properties) throws SQLException {
+        StringBuilder url = new StringBuilder();
+        url.append("jdbc:").append(dbtype.toString().toLowerCase()).append("://").append(host).append(":").append(dbtype.getPort()).append("/").append(databaseName);
+        ArrayList<String> property = new ArrayList<>();
+        properties.forEach((key, value) -> {
+            property.add(key + "=" + value);
+        });
+        if(property.size()>0) {
+            StringJoiner join = new StringJoiner("&");
+            property.forEach(join::add);
+            url.append("?").append(join);
+        }
+        return connect(new String(url), userName, password);
+    }
+
     public static Connection connect(DatabaseType dbtype, String host, int port, String userName, String password, String databaseName, TreeMap<String, String> properties) throws SQLException {
         StringBuilder url = new StringBuilder();
         url.append("jdbc:").append(dbtype.toString().toLowerCase()).append("://").append(host).append(":").append(port).append("/").append(databaseName);

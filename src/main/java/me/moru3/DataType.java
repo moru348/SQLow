@@ -5,6 +5,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.function.Function;
 
 public class DataType<T> {
@@ -21,6 +23,8 @@ public class DataType<T> {
     public final static DataType<?> TIME = new DataType<>("TIME", false, false, false, true, true, Obj2Str::convTime, Date.class);
     public final static DataType<?> VARCHAR = new DataType<>("VARCHAR", false, false, false, false, true, 255, 65535, Obj2Str::convString, String.class);
     public final static DataType<?> TEXT = new DataType<>("TEXT", false, false, false, false, false, 255, 14090025, Obj2Str::convString, String.class);
+
+    public static Set<DataType<?>> dataTypes = new HashSet<>();
 
     @NotNull
     private final String typeName;

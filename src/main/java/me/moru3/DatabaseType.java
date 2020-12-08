@@ -2,11 +2,13 @@ package me.moru3;
 
 public enum DatabaseType {
     MYSQL(3306),
-    POSTGRESQL(5432),
     MARIADB(3306),
     ;
 
+    private final int port;
     DatabaseType(int i) {
-
+        port = i;
     }
+
+    public int getPort() {return port;}
 }
