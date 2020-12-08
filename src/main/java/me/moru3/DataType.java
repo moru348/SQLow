@@ -38,7 +38,7 @@ public class DataType<T> {
 
 
     @Nullable
-    private Object property;
+    private final Object property;
 
     @NotNull
     public String getTypeName() {return typeName;}
@@ -67,6 +67,7 @@ public class DataType<T> {
         this.allowPrimaryKey = primaryKey;
         this.allowDefault = defaultKey;
         this.convM = convM;
+        this.property = property;
         this.typeClass = typeClass;
         if(dataTypes.get(priority)!=null) {
             List<DataType<?>> temp = dataTypes.get(priority);
