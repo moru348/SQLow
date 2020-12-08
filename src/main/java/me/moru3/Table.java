@@ -20,14 +20,14 @@ public class Table implements ITable {
 
     public String build(boolean force) throws IllegalArgumentException, NoPropertyException {
         StringBuilder result = new StringBuilder();
-        result.append("TABLE CREATE ").append(force ? "" + name : "IF NOT EXISTS " + name).append(" (");
+        result.append("CREATE TABLE ").append(force ? "" + name : "IF NOT EXISTS " + name).append(" (");
         Column[] primaryKeys = Arrays.stream(columns).filter(Column::isPrimaryKey).toArray(Column[]::new);
         if(primaryKeys.length>1) throw new IllegalArgumentException("Only 1 Primary Key can be set for each table.");
         Column primaryKey = primaryKeys[0];
-        StringJoiner columnList = new StringJoiner(",");
+        StringJoiner columnList = new StringJoiner(", ");
         Arrays.stream(columns).map(Column::build).forEach(columnList::add);
-        result.append(columnList);
-        if(primaryKey!=null) result.append(", PRIMARY KEY (").append(primaryKey.getName()).append(")");
+        if(primaryKey!=null) result.append("PRIMARY KEY (").append(primaryKey.getName()).append(")");
+        result.append(columnList).append(")");
         result.append(";");
         return new String(result);
     }
