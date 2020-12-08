@@ -37,4 +37,13 @@ public class Table implements ITable {
         ps.executeUpdate();
         ps.close();
     }
+    @Override
+    public String toString() {
+        try {
+            return build(false);
+        } catch (NoPropertyException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

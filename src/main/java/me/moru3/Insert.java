@@ -53,4 +53,9 @@ public class Insert extends ObjConv {
         ps.executeUpdate();
         ps.close();
     }
+
+    @Override
+    public String toString() {
+        return build(false);
+    }
 }

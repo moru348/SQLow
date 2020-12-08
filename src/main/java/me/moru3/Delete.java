@@ -21,7 +21,7 @@ public class Delete extends ObjConv {
     public String build() {
         StringBuilder result = new StringBuilder();
         result.append("DELETE FROM ").append(tableName).append(" WHERE ");
-        result.append(where).append(";");
+        result.append(where.build()).append(";");
         return new String(result);
     }
 
@@ -30,5 +30,10 @@ public class Delete extends ObjConv {
         PreparedStatement ps = SQLow.getConnection().prepareStatement(build());
         ps.executeUpdate();
         ps.close();
+    }
+
+    @Override
+    public String toString() {
+        return build();
     }
 }
