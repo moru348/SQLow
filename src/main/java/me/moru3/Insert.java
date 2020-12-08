@@ -4,7 +4,6 @@ import me.moru3.exceptions.NoPropertyException;
 import me.moru3.utils.ObjConv;
 import org.jetbrains.annotations.NotNull;
 
-import javax.xml.crypto.Data;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.*;
@@ -12,15 +11,21 @@ import java.util.*;
 public class Insert extends ObjConv {
     private final String tableName;
     private Map<String, AbstractMap.SimpleEntry<DataType<?>, Object>> values;
-    public Insert(@NotNull String tableName, @NotNull Map<String, Object> values) {
+    public Insert(@NotNull String tableName) {
         this.tableName = tableName;
-        values.forEach((key, value) -> {
-            AbstractMap.SimpleEntry<DataType<?>, Object> temp = new AbstractMap.SimpleEntry<>(ObjToType(value), value);
-            this.values.put(key, temp);
-        });
     }
 
-    public String build() {
+    public Insert addValue(DataType<?> type, String key, Object value) {
+        values.put(key, new AbstractMap.SimpleEntry<>(type, value));
+        return this;
+    }
+
+    public Insert addValue(String key, Object value) {
+        values.put(key, new AbstractMap.SimpleEntry<>(ObjToType(value), value));
+        return this;
+    }
+
+    public String build(boolean force) {
         List<String> keys = new ArrayList<>();
         Map<DataType<?>, Object> values = new HashMap<>();
         this.values.forEach((key, value) -> {
@@ -34,7 +39,7 @@ public class Insert extends ObjConv {
             valueJoiner.add(key.getConvM().apply(value));
         });
         keys.forEach(keyJoiner::add);
-        result.append("INSERT INTO ")
+        result.append("INSERT").append(force?"":" IGNORE").append(" INTO")
                 .append(tableName)
                 .append(" (").append(keyJoiner).append(")")
                 .append(" VALUES (")
@@ -42,9 +47,10 @@ public class Insert extends ObjConv {
         return new String(result);
     }
 
-    public void send() throws IllegalArgumentException, NoPropertyException, SQLException {
+    public void send(boolean force) throws IllegalArgumentException, NoPropertyException, SQLException {
         if(SQLow.getConnection()==null) throw new NoPropertyException("No connection has been created with SQ Low (Connection).");
-        PreparedStatement ps = SQLow.getConnection().prepareStatement(build());
+        PreparedStatement ps = SQLow.getConnection().prepareStatement(build(force));
         ps.executeUpdate();
+        ps.close();
     }
 }

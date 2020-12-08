@@ -35,9 +35,6 @@ public class Table implements ITable {
         if(SQLow.getConnection()==null) throw new NoPropertyException("No connection has been created with SQ Low (Connection).");
         PreparedStatement ps = SQLow.getConnection().prepareStatement(build(force));
         ps.executeUpdate();
-    }
-
-    public void send() throws IllegalArgumentException, NoPropertyException, SQLException {
-        send(false);
+        ps.close();
     }
 }

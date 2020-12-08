@@ -14,6 +14,4 @@ public interface ITable {
     String build(boolean force) throws IllegalArgumentException, NoPropertyException;
 
     void send(boolean force) throws IllegalArgumentException, NoPropertyException, SQLException;
-
-    void send() throws IllegalArgumentException, NoPropertyException, SQLException;
 }
