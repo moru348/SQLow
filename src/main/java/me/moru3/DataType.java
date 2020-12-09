@@ -60,7 +60,7 @@ public class DataType<T> {
 
     public int getPriority() { return priority; }
 
-    private DataType(@NotNull String typeName, boolean unsigned, boolean zeroFill, boolean autoIncrement, boolean primaryKey, boolean defaultKey, @Nullable Object property, @NotNull Function<Object, String> convM, @NotNull Function<Object, T> convR, @NotNull Class<T> typeClass, int priority) {
+    public DataType(@NotNull String typeName, boolean unsigned, boolean zeroFill, boolean autoIncrement, boolean primaryKey, boolean defaultKey, @Nullable Object property, @NotNull Function<Object, String> convM, @NotNull Function<Object, T> convR, @NotNull Class<T> typeClass, int priority) {
         this.typeName = typeName;
         this.allowUnsigned= unsigned;
         this.allowZeroFill = zeroFill;
