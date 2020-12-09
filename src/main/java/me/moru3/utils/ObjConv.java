@@ -1,13 +1,14 @@
 package me.moru3.utils;
 
 import me.moru3.DataType;
+import me.moru3.DataTypes;
 import org.jetbrains.annotations.NotNull;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public abstract class ObjConv {
+public class ObjConv {
     public static String convString(Object obj) {
         return "\"" + obj.toString() + "\"";
     }
@@ -25,8 +26,8 @@ public abstract class ObjConv {
     }
 
     public static DataType<?> ObjToType(@NotNull Object obj) {
-        for(int key : DataType.dataTypes.keySet()) {
-            for(DataType<?> type : DataType.dataTypes.get(key)) {
+        for(int key : DataTypes.get().keySet()) {
+            for(DataType<?> type : DataTypes.get().get(key)) {
                 if(type.toClass().isInstance(obj)) {
                     return type;
                 }
@@ -38,7 +39,6 @@ public abstract class ObjConv {
     public static byte toByte(@NotNull Object obj) {
         return Byte.parseByte(String.valueOf(obj));
     }
-
 
     public static short toShort(@NotNull Object obj) {
         return Short.parseShort(String.valueOf(obj));

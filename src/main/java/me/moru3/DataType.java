@@ -23,9 +23,6 @@ public class DataType<T> {
     public final static DataType<?> TEXT = new DataType<>("TEXT", false, false, false, false, false, 65535,  ObjConv::convString, String::valueOf, String.class, 110);
     public final static DataType<?> LONGTEXT = new DataType<>("LONGTEXT", false, false, false, false, false, 	2147483647, ObjConv::convString, String::valueOf, String.class, 110);
 
-    public static TreeMap<Integer, List<DataType<?>>> dataTypes = new TreeMap<>();
-
-    @NotNull
     private final String typeName;
 
     private final boolean allowUnsigned;
@@ -36,12 +33,11 @@ public class DataType<T> {
     private final Function<Object, String> convM;
     private final Function<Object, T> convR;
     private final Class<T> typeClass;
-
+    private final int priority;
 
     @Nullable
     private final Object property;
 
-    @NotNull
     public String getTypeName() {return typeName;}
 
     public boolean getUnsigned() {return allowUnsigned;}
@@ -54,7 +50,6 @@ public class DataType<T> {
 
     public boolean getDefault() {return allowDefault;}
 
-
     public @Nullable Object getProperty() {return property;}
 
     public Function<Object, String> getConvM() {return convM;}
@@ -62,6 +57,8 @@ public class DataType<T> {
     public Function<Object, T> getConvR() {return convR;}
 
     public Class<T> toClass() {return typeClass;}
+
+    public int getPriority() { return priority; }
 
     private DataType(@NotNull String typeName, boolean unsigned, boolean zeroFill, boolean autoIncrement, boolean primaryKey, boolean defaultKey, @Nullable Object property, @NotNull Function<Object, String> convM, @NotNull Function<Object, T> convR, @NotNull Class<T> typeClass, int priority) {
         this.typeName = typeName;
@@ -74,14 +71,20 @@ public class DataType<T> {
         this.property = property;
         this.typeClass = typeClass;
         this.convR = convR;
-        if(dataTypes.get(priority)!=null) {
-            List<DataType<?>> temp = dataTypes.get(priority);
-            temp.add(this);
-            dataTypes.put(priority, temp);
-        } else {
-            List<DataType<?>> temp = new ArrayList<>();
-            temp.add(this);
-            dataTypes.put(priority, temp);
-        }
+        this.priority = priority;
+        DataTypes.add(this);
+    }
+    protected DataType() {
+        this.typeName = null;
+        this.allowUnsigned= false;
+        this.allowZeroFill = false;
+        this.allowAutoIncrement = false;
+        this.allowPrimaryKey = false;
+        this.allowDefault = false;
+        this.convM = null;
+        this.property = null;
+        this.typeClass = null;
+        this.convR = null;
+        this.priority = 127;
     }
 }

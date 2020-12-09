@@ -10,7 +10,7 @@ import java.util.*;
 
 public class Insert extends ObjConv {
     private final String tableName;
-    private Map<String, AbstractMap.SimpleEntry<DataType<?>, Object>> values;
+    private final Map<String, AbstractMap.SimpleEntry<DataType<?>, Object>> values = new HashMap<>();
     public Insert(@NotNull String tableName) {
         this.tableName = tableName;
     }
@@ -39,7 +39,7 @@ public class Insert extends ObjConv {
             valueJoiner.add(key.getConvM().apply(value));
         });
         keys.forEach(keyJoiner::add);
-        result.append("INSERT").append(force?"":" IGNORE").append(" INTO")
+        result.append("INSERT").append(force?"":" IGNORE").append(" INTO ")
                 .append(tableName)
                 .append(" (").append(keyJoiner).append(")")
                 .append(" VALUES (")
