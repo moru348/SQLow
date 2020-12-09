@@ -53,6 +53,7 @@ public class Select {
         return new String(result);
     }
 
+    // TODO: Returns its own type (Result) instead of ResultSet. Also, the usage of the original one is the same as ResultSet.
     public ResultSet send() throws IllegalArgumentException, NoPropertyException, SQLException {
         if(SQLow.getConnection()==null) throw new NoPropertyException("No connection has been created with SQ Low (Connection).");
         PreparedStatement ps = SQLow.getConnection().prepareStatement(build());
