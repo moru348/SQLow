@@ -8,7 +8,7 @@
 <br>
 ### ・拡張性
 <b>オリジナルの型を追加しString, Intなど以外に独自の型も使用できます。</b><br><br>
-例: ここでは Conv クラス上に String convIS(Object itemStack) メソッドがあると仮定しています。<br>※ItemStackはBukkitPluginのオリジナルの型です
+例: ここでは Conv クラス上に String fromItemStack(Object itemStack), ItemStack toItemStack(Object itemStack) メソッドがあると仮定しています。<br>※ItemStackはBukkitPluginのオリジナルの型です
 <br>
 ```DataType<?> ITEMSTACK = new DataType<>("LONGTEXT", false, false, false, false, false, 2147483647, Conv::fromItemStack, Conv::toItemStack, ItemStack.class, 110);```
 <br><br>
