@@ -46,9 +46,9 @@ public class Select {
     public String build() {
         StringBuilder result = new StringBuilder();
         result.append("SELECT * FROM ").append(tableName)
-                .append(" WHERE ").append(where.build())
+                .append(" WHERE").append(where.build())
                 .append(limit < 1 ? "" : " LIMIT " + limit)
-                .append(" OFFSET ").append(offset)
+                .append(limit < 1 ? "" : " OFFSET " + offset)
                 .append(orderKey==null ? "" : " ORDER BY " + orderKey + order);
         return new String(result);
     }
@@ -56,9 +56,7 @@ public class Select {
     public ResultSet send() throws IllegalArgumentException, NoPropertyException, SQLException {
         if(SQLow.getConnection()==null) throw new NoPropertyException("No connection has been created with SQ Low (Connection).");
         PreparedStatement ps = SQLow.getConnection().prepareStatement(build());
-        ResultSet rs = ps.executeQuery();
-        ps.close();
-        return rs;
+        return ps.executeQuery();
     }
 
     @Override

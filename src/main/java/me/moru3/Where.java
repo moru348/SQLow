@@ -24,17 +24,58 @@ public class Where extends ObjConv {
         return this;
     }
 
-    public Where addOperator(ComparativeOperator op) {
+    public Where and() {
         if (!opera) return this;
         opera = false;
-        after = " " + op.getOperator() + " ";
+        after = " AND ";
         result.append(after);
         return this;
     }
-    public Where addOperator(LogicalOperator op) {
+
+    public Where or() {
         if (!opera) return this;
         opera = false;
-        after = " " + op.toString() + " ";
+        after = " OR ";
+        result.append(after);
+        return this;
+    }
+
+    public Where equals() {
+        if (!opera) return this;
+        opera = false;
+        after = " = ";
+        result.append(after);
+        return this;
+    }
+
+    public Where lessThan() {
+        if (!opera) return this;
+        opera = false;
+        after = " < ";
+        result.append(after);
+        return this;
+    }
+
+    public Where greaterThan() {
+        if (!opera) return this;
+        opera = false;
+        after = " > ";
+        result.append(after);
+        return this;
+    }
+
+    public Where lessThanOrEquals() {
+        if (!opera) return this;
+        opera = false;
+        after = " <= ";
+        result.append(after);
+        return this;
+    }
+
+    public Where greaterThanOrEquals() {
+        if (!opera) return this;
+        opera = false;
+        after = " >= ";
         result.append(after);
         return this;
     }
