@@ -38,7 +38,7 @@ public class Column implements IColumn {
             }
         }
         result.append(" NULL");
-        if(autoincrement&&type.getAutoIncrement()) result.append(SQLow.getDatabaseType()==DatabaseType.SQLITE ? "AUTOINCREMENT" : " AUTO_INCREMENT");
+        if(autoincrement&&type.getAutoIncrement()) result.append(SQLow.getDatabaseType()==DatabaseType.SQLITE ? " AUTOINCREMENT" : " AUTO_INCREMENT");
         if(defaultvalue!=null&&type.getDefault()) {
             result.append(" DEFAULT ").append(type.getConvM().apply(defaultvalue));
         }
