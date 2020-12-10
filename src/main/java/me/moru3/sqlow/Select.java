@@ -1,6 +1,6 @@
-package me.moru3;
+package me.moru3.sqlow;
 
-import me.moru3.exceptions.NoPropertyException;
+import me.moru3.sqlow.exceptions.NoPropertyException;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

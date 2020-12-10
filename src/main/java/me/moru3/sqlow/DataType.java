@@ -1,6 +1,6 @@
-package me.moru3;
+package me.moru3.sqlow;
 
-import me.moru3.utils.ObjConv;
+import me.moru3.sqlow.utils.ObjConv;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

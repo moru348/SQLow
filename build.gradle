@@ -1,9 +1,10 @@
 plugins {
-    id 'java-library'
+    id 'java'
+    id 'maven-publish'
 }
 
 group 'me.moru3.sqlow'
-version '1.0-SNAPSHOT'
+version '1.0'
 
 repositories {
     mavenCentral()
@@ -17,4 +18,26 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+task sourceJar(type: Jar) {
+    classifier 'sources'
+    from sourceSets.main.allJava
+}
+
+publishing {
+    publications {
+        target(MavenPublication) {
+            groupId 'me.moru3'
+            artifactId 'sqlow'
+            version '1.0.1'
+            from components.java
+            artifact tasks.sourceJar
+        }
+    }
+    repositories {
+        maven {
+            url '/home/moru3/MyRepository/repo'
+        }
+    }
 }

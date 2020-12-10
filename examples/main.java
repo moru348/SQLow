@@ -1,7 +1,7 @@
-import me.moru3.Column;
-import me.moru3.DataType;
-import me.moru3.Table;
-import me.moru3.exceptions.NoPropertyException;
+import me.moru3.sqlow.Column;
+import me.moru3.sqlow.DataType;
+import me.moru3.sqlow.Table;
+import me.moru3.sqlow.exceptions.NoPropertyException;
 
 public class Example {
     public static void main(String[] args) {

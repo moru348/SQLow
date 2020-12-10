@@ -1,4 +1,4 @@
-package me.moru3;
+package me.moru3.sqlow;
 
 public enum OrderType {
     ASC,

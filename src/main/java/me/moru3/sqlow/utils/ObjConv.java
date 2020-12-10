@@ -1,7 +1,7 @@
-package me.moru3.utils;
+package me.moru3.sqlow.utils;
 
-import me.moru3.DataType;
-import me.moru3.DataTypes;
+import me.moru3.sqlow.DataType;
+import me.moru3.sqlow.DataTypes;
 import org.jetbrains.annotations.NotNull;
 
 import java.text.ParseException;

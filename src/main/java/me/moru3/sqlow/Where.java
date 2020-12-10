@@ -1,6 +1,6 @@
-package me.moru3;
+package me.moru3.sqlow;
 
-import me.moru3.utils.ObjConv;
+import me.moru3.sqlow.utils.ObjConv;
 
 public class Where extends ObjConv {
     private Boolean opera = false;
