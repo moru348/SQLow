@@ -11,7 +11,8 @@ public class DataType<T> {
     public final static DataType<?> TINYINT = new DataType<>("TINYINT", true, true, true, true, true, null, Object::toString, ObjConv::toByte, Byte.class, 100);
     public final static DataType<?> SMALLINT = new DataType<>("SHORT", true, true, true, true, true, null, Object::toString, ObjConv::toShort, Short.class, 101);
     public final static DataType<?> MEDIUMINT = new DataType<>("MEDIUMINT", true, true, true, true, true, null, Object::toString, ObjConv::toInt, Integer.class, 102);
-    public final static DataType<?> INT = new DataType<>("INT", true, true, true, true, true, null, Object::toString, ObjConv::toInt, Integer.class, 103);
+    public final static DataType<?> INT = new DataType<>("INTEGER", true, true, true, true, true, null, Object::toString, ObjConv::toInt, Integer.class, 103);
+    public final static DataType<?> INTEGER = new DataType<>("INTEGER", true, true, true, true, true, null, Object::toString, ObjConv::toInt, Integer.class, 103);
     public final static DataType<?> BIGINT = new DataType<>("BIGINT", true, true, true, true, true, null, Object::toString, ObjConv::toLong,Long.class, 104);
     public final static DataType<?> FLOAT = new DataType<>("FLOAT", true, true, true, true, true, null, Object::toString, ObjConv::toFloat, Float.class, 100);
     public final static DataType<?> DOUBLE = new DataType<>("DOUBLE", true, true, true, true, true, null, Object::toString, ObjConv::toDouble, Double.class, 101);
