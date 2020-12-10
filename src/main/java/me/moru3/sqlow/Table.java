@@ -27,7 +27,7 @@ public class Table implements ITable {
         StringJoiner columnList = new StringJoiner(", ");
         StringJoiner primaryKeyList = new StringJoiner(", ");
         Arrays.stream(columns).map(Column::build).forEach(columnList::add);
-        Arrays.stream(primaryKeys).map(i -> "\"" + i + "\"").forEach(primaryKeyList::add);
+        Arrays.stream(primaryKeys).map(i -> "\"" + i.getName() + "\"").forEach(primaryKeyList::add);
         if(primaryKeys.length>=1) columnList.add("PRIMARY KEY (" + primaryKeyList + ")");
         result.append(columnList).append(")");
         result.append(";");
