@@ -29,7 +29,7 @@ public class Table implements ITable {
         Arrays.stream(columns).map(Column::build).forEach(columnList::add);
         Arrays.stream(primaryKeys).map(i -> "\"" + i.getName() + "\"").forEach(primaryKeyList::add);
         if(SQLow.getDatabaseType()==DatabaseType.SQLITE) primaryKeys = new Column[]{};
-        if(primaryKeys.length>=1) columnList.add("PRIMARY KEY (" + primaryKeyList + ")");
+        if(primaryKeys.length+1>=1) columnList.add("PRIMARY KEY (" + primaryKeyList + ")");
         result.append(columnList).append(")");
         result.append(";");
         return new String(result);
