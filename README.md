@@ -11,7 +11,10 @@
 例: ここでは Conv クラス上に String fromItemStack(Object itemStack), ItemStack toItemStack(Object itemStack) メソッドがあると仮定しています。<br>※ItemStackはBukkitPluginのオリジナルの型です
 <br>
 ```DataType<?> ITEMSTACK = new DataType<>("LONGTEXT", false, false, false, false, false, 2147483647, Conv::fromItemStack, Conv::toItemStack, ItemStack.class, 1);```
-<br><br>
+<br>
+### PK, AI はSQLiteの使用になっているためPKは複数設定できますがAIを設定するとPKの数が1つに制限されます。これはいつか修正予定です。
+<br>
+<br>
 SQLiteについて。<br>
 SQLiteはDatabaseTypeを使用せずにnew SQLow("sqlow", "root")のように使用してください。
 また、現在はSQLiteの構文を完全にサポートしていないため一部のプロパティを設定するとエラーが発生する可能性があります。
