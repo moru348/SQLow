@@ -30,7 +30,7 @@ publishing {
         target(MavenPublication) {
             groupId 'me.moru3'
             artifactId 'sqlow'
-            version '1.2.43'
+            version '1.2.46'
             from components.java
             artifact tasks.sourceJar
         }
