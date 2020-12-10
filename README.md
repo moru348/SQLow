@@ -1,4 +1,4 @@
-# SQLowForJava
+# SQLow
 最近JavaにハマってたのでGo向けに書いたSQLowを書き直してます。
 ## 特徴
 ### ・簡単
