@@ -21,11 +21,14 @@ public class Table implements ITable {
         StringBuilder result = new StringBuilder();
         result.append("CREATE TABLE ").append(force ? "" + name : "IF NOT EXISTS " + name).append(" (");
         Column[] primaryKeys = Arrays.stream(columns).filter(Column::isPrimaryKey).toArray(Column[]::new);
-        if(primaryKeys.length>1) throw new IllegalArgumentException("Only 1 Primary Key can be set for each table.");
-        Column primaryKey = primaryKeys[0];
+        Column[] autoIncrements = Arrays.stream(columns).filter(Column::isAutoIncrement).toArray(Column[]::new);
+        if(autoIncrements.length>1) throw new IllegalArgumentException("The maximum number of AI that can be set is 1.");
+        if(primaryKeys.length>1 && autoIncrements.length>=1) throw new IllegalArgumentException("If you set AI, PK is limited to one.");
         StringJoiner columnList = new StringJoiner(", ");
+        StringJoiner primaryKeyList = new StringJoiner(", ");
         Arrays.stream(columns).map(Column::build).forEach(columnList::add);
-        if(primaryKey!=null) columnList.add("PRIMARY KEY (" + primaryKey.getName() + ")");
+        Arrays.stream(primaryKeys).map(i -> "\"" + i + "\"").forEach(primaryKeyList::add);
+        if(primaryKeys.length>=1) columnList.add("PRIMARY KEY (" + primaryKeyList + ")");
         result.append(columnList).append(")");
         result.append(";");
         return new String(result);

@@ -11,6 +11,7 @@ public class SQLow {
     private static String password;
     private static String user;
     private static String url;
+    private static DatabaseType databaseType;
 
     public static Connection getConnection() throws SQLException {
         if(connection==null) throw new NullPointerException("getConnection() was called with no connection established.");
@@ -19,6 +20,8 @@ public class SQLow {
         }
         return connection;
     }
+
+    public static DatabaseType getDatabaseType() { return databaseType; }
 
     /**
      * Reconnect to the database.
@@ -30,7 +33,6 @@ public class SQLow {
         if(user==null||password==null) {
             return connect(url);
         }
-
         return connect(url, user, password);
     }
 
@@ -57,6 +59,7 @@ public class SQLow {
             property.forEach(join::add);
             url.append("?").append(join);
         }
+        databaseType = dbtype;
         return connect(new String(url), userName, password);
     }
 
@@ -84,6 +87,7 @@ public class SQLow {
             property.forEach(join::add);
             url.append("?").append(join);
         }
+        databaseType = dbtype;
         return connect(new String(url), userName, password);
     }
 
@@ -111,6 +115,8 @@ public class SQLow {
      */
     public static Connection connect(String url) throws SQLException {
         connection = DriverManager.getConnection(url);
+        SQLow.url = url;
+        databaseType = DatabaseType.SQLITE;
         return connection;
     }
 }
