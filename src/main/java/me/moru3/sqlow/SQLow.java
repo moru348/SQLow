@@ -32,36 +32,11 @@ public class SQLow {
     public static Connection reconnect() throws SQLException, NullPointerException {
         if(connection==null) throw new NullPointerException("reconnect() was called with no connection established.");
         if(user==null||password==null) {
-            return connect(url);
+            File dbfile = new File(url);
+            if(!dbfile.exists()) throw new NullPointerException(dbfile.getName() + "is not found.");
+            return connect(dbfile);
         }
         return connect(url, user, password);
-    }
-
-    /**
-     * This is a function to prepare Connection.
-     * @param dbtype DatabaseType The database to use.
-     * @param host String Database host.
-     * @param userName String SQL username.
-     * @param password String SQL password.
-     * @param databaseName String Database name.
-     * @param properties TreeMap<String, String> Properties when connecting.
-     * @return Connection
-     * @throws SQLException SQL Error
-     */
-    public static Connection connect(DatabaseType dbtype, String host, String userName, String password, String databaseName, TreeMap<String, String> properties) throws SQLException {
-        StringBuilder url = new StringBuilder();
-        url.append("jdbc:").append(dbtype.toString().toLowerCase()).append("://").append(host).append(":").append(dbtype.getPort()).append("/").append(databaseName);
-        ArrayList<String> property = new ArrayList<>();
-        properties.forEach((key, value) -> {
-            property.add(key + "=" + value);
-        });
-        if(property.size()>0) {
-            StringJoiner join = new StringJoiner("&");
-            property.forEach(join::add);
-            url.append("?").append(join);
-        }
-        databaseType = dbtype;
-        return connect(new String(url), userName, password);
     }
 
     /**
@@ -105,19 +80,6 @@ public class SQLow {
         user = userName;
         SQLow.url = url;
         connection = DriverManager.getConnection(url, userName, password);
-        return connection;
-    }
-
-    /**
-     * This is a connect prepared for SQ Low.
-     * @param url String The JDBC URL.
-     * @return Connection
-     * @throws SQLException SQL Error
-     */
-    public static Connection connect(String url) throws SQLException {
-        connection = DriverManager.getConnection(url);
-        SQLow.url = url;
-        databaseType = DatabaseType.SQLITE;
         return connection;
     }
 
