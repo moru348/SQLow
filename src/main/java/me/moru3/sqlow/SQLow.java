@@ -1,5 +1,6 @@
 package me.moru3.sqlow;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
@@ -116,6 +117,19 @@ public class SQLow {
     public static Connection connect(String url) throws SQLException {
         connection = DriverManager.getConnection(url);
         SQLow.url = url;
+        databaseType = DatabaseType.SQLITE;
+        return connection;
+    }
+
+    /**
+     * This is a connect prepared for SQ Low.
+     * @param file File SQLite file.
+     * @return Connection
+     * @throws SQLException SQL Error
+     */
+    public static Connection connect(File file) throws SQLException {
+        connection = DriverManager.getConnection(file.getAbsolutePath());
+        SQLow.url = file.getAbsolutePath();
         databaseType = DatabaseType.SQLITE;
         return connection;
     }

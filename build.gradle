@@ -30,14 +30,14 @@ publishing {
         target(MavenPublication) {
             groupId 'me.moru3'
             artifactId 'sqlow'
-            version '1.2.46'
+            version '1.8.3'
             from components.java
             artifact tasks.sourceJar
         }
     }
     repositories {
         maven {
-            url '/home/moru3/MyRepository/repo'
+            url 'repo'
         }
     }
 }
