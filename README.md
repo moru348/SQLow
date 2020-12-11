@@ -16,5 +16,8 @@
 <br>
 <br>
 SQLiteについて。<br>
-SQLiteはDatabaseTypeを使用せずにnew SQLow("sqlow", "root")のように使用してください。
+SQLiteはDatabaseTypeを使用せずにnew SQLow("url")のように使用してください。
 また、現在はSQLiteの構文を完全にサポートしていないため一部のプロパティを設定するとエラーが発生する可能性があります。
+
+```https://repo.moru3.dev/```<br>
+```me.moru3:sqlow:1.8.12```
