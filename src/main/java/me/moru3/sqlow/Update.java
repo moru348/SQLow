@@ -8,19 +8,21 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.*;
 
-public class Insert extends ObjConv {
+public class Update {
     private final String tableName;
+    private final Where where;
     private final Map<String, String> values = new HashMap<>();
-    public Insert(@NotNull String tableName) {
+    public Update(@NotNull String tableName, Where where) {
         this.tableName = tableName;
+        this.where = where;
     }
 
-    public Insert addValue(DataType<?> type, String key, Object value) {
+    public Update addValue(DataType<?> type, String key, Object value) {
         values.put(key, type.getConvM().apply(value));
         return this;
     }
 
-    public Insert addValue(String key, Object value) {
+    public Update addValue(String key, Object value) {
         if(value instanceof Select) {
             values.put(key, ((Select) value).build());
             return this;
@@ -30,18 +32,12 @@ public class Insert extends ObjConv {
     }
 
     public String build(boolean force) {
-        StringJoiner keyJoiner = new StringJoiner(",");
-        StringJoiner valueJoiner = new StringJoiner(",");
-        this.values.forEach((key, value) -> {
-            keyJoiner.add(key);
-            valueJoiner.add(value);
-        });
         StringBuilder result = new StringBuilder();
-        result.append("INSERT").append(force?"":" IGNORE").append(" INTO ")
-                .append(tableName)
-                .append(" (").append(keyJoiner).append(")")
-                .append(" VALUES (")
-                .append(valueJoiner);
+        result.append("UPDATE ").append(tableName).append(" SET ");
+        StringJoiner values = new StringJoiner(",");
+        this.values.forEach((key, value) -> values.add(key + " = " + value));
+        result.append(values);
+        result.append(where.build());
         return new String(result);
     }
 

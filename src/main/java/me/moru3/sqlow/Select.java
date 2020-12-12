@@ -46,18 +46,25 @@ public class Select {
     public String build() {
         StringBuilder result = new StringBuilder();
         result.append("SELECT * FROM ").append(tableName)
-                .append(" WHERE").append(where.build())
+            .append(where.build())
                 .append(limit < 1 ? "" : " LIMIT " + limit)
                 .append(limit < 1 ? "" : " OFFSET " + offset)
                 .append(orderKey==null ? "" : " ORDER BY " + orderKey + order);
         return new String(result);
     }
 
-    // TODO: Returns its own type (Result) instead of ResultSet. Also, the usage of the original one is the same as ResultSet.
     public ResultSet send() throws IllegalArgumentException, NoPropertyException, SQLException {
         if(SQLow.getConnection()==null) throw new NoPropertyException("No connection has been created with SQ Low (Connection).");
         PreparedStatement ps = SQLow.getConnection().prepareStatement(build());
-        return ps.executeQuery();
+        ResultSet rs = ps.executeQuery();
+        ps.close();
+        return rs;
+    }
+
+    public Boolean exists() throws IllegalArgumentException, NoPropertyException, SQLException {
+        if(SQLow.getConnection()==null) throw new NoPropertyException("No connection has been created with SQ Low (Connection).");
+        ResultSet rs = send();
+        return rs.next();
     }
 
     @Override

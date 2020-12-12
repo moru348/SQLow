@@ -20,8 +20,7 @@ public class Delete extends ObjConv {
 
     public String build() {
         StringBuilder result = new StringBuilder();
-        result.append("DELETE FROM ").append(tableName).append(" WHERE ");
-        result.append(where.build()).append(";");
+        result.append("DELETE FROM ").append(tableName).append(where.build());
         return new String(result);
     }
 

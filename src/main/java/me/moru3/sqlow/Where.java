@@ -11,7 +11,7 @@ public class Where extends ObjConv {
     public Where addKey(String key) {
         if(opera) return this;
         opera = true;
-        after = " " + key;
+        after = key;
         result.append(after);
         return this;
     }
@@ -19,7 +19,11 @@ public class Where extends ObjConv {
     public Where addValue(Object value) {
         if(opera) return this;
         opera = true;
-        after = ObjToType(value).getConvM().apply(value);
+        if(value instanceof Select) {
+            after = ((Select) value).build();
+        } else {
+            after = ObjToType(value).getConvM().apply(value);
+        }
         result.append(after);
         return this;
     }
@@ -83,13 +87,16 @@ public class Where extends ObjConv {
     public Where addLike(String key, String value) {
         if(opera) return this;
         opera = true;
-        after = "\"" + key + "\"";
+        after = "key LIKE \"" + value + "\"";
         result.append(after);
         return this;
     }
 
     public String build() {
-        String result = new String(this.result) + "<?>?";
+        String result = " WHERE " + new String(this.result) + "<?>?";
+        if(this.result.length()<=0) {
+            return "";
+        }
         if(!opera) return result.replace(after + "<?>?", "");
         return result.replace("<?>?", "");
     }

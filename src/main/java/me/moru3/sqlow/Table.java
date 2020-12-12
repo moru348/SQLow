@@ -41,7 +41,6 @@ public class Table implements ITable {
         if(SQLow.getDatabaseType()==DatabaseType.SQLITE) primaryKeys = new Column[]{};
         if(primaryKeys.length>=1) columnList.add("PRIMARY KEY (" + primaryKeyList + ")");
         result.append(columnList).append(")");
-        result.append(";");
         return new String(result);
     }
 
