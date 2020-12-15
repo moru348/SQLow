@@ -31,7 +31,7 @@ public class Update {
         return this;
     }
 
-    public String build(boolean force) {
+    public String build() {
         StringBuilder result = new StringBuilder();
         result.append("UPDATE ").append(tableName).append(" SET ");
         StringJoiner values = new StringJoiner(",");
@@ -41,15 +41,15 @@ public class Update {
         return new String(result);
     }
 
-    public void send(boolean force) throws IllegalArgumentException, NoPropertyException, SQLException {
+    public void send() throws IllegalArgumentException, NoPropertyException, SQLException {
         if(SQLow.getConnection()==null) throw new NoPropertyException("No connection has been created with SQ Low (Connection).");
-        PreparedStatement ps = SQLow.getConnection().prepareStatement(build(force));
+        PreparedStatement ps = SQLow.getConnection().prepareStatement(build());
         ps.executeUpdate();
         ps.close();
     }
 
     @Override
     public String toString() {
-        return build(false);
+        return build();
     }
 }
