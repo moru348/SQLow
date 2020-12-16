@@ -37,18 +37,15 @@ public class Table implements ITable {
         if(SQLow.getDatabaseType()==DatabaseType.SQLITE && primaryKeys.length>1 && autoIncrements.length>=1) throw new IllegalArgumentException("If you set AI, PK is limited to one.");
         StringJoiner columnList = new StringJoiner(", ");
         StringJoiner primaryKeyList = new StringJoiner(", ");
-        StringJoiner uniqueIndexList = new StringJoiner(", ");
         if(SQLow.getDatabaseType()==DatabaseType.SQLITE&&autoIncrements.length<=0) primaryKeys = Arrays.stream(primaryKeys).map(i -> i.setPrimaryKey(false)).toArray(Column[]::new);
         columns.stream().map(Column::build).forEach(columnList::add);
         Arrays.stream(primaryKeys).map(Column::getName).forEach(primaryKeyList::add);
         if(SQLow.getDatabaseType()==DatabaseType.SQLITE&&autoIncrements.length>0) primaryKeys = new Column[]{};
-        if(primaryKeys.length>=1) columnList.add(" PRIMARY KEY (" + primaryKeyList + ")");
-        if(uniqueIndexes.length>=1) {
-            if(SQLow.getDatabaseType()!=DatabaseType.SQLITE) {
-                columnList.add(" UNIQUE " + name + "_index (" + uniqueIndexList + ")");
-            } else {
-                columnList.add(" UNIQUE(" + uniqueIndexList + ")");
-            }
+        if(primaryKeys.length>=1) columnList.add("PRIMARY KEY (" + primaryKeyList + ")");
+        if(uniqueIndexes.length>=1&&SQLow.getDatabaseType()!=DatabaseType.SQLITE) {
+            Arrays.stream(uniqueIndexes).forEach(i -> {
+                columnList.add("UNIQUE `" + name + "_UNIQUE` (`" + i.getName() + "` ASC) VISIBLE");
+            });
         }
         result.append(columnList).append(")");
         return new String(result);

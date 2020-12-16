@@ -16,13 +16,13 @@ public class DataType<T> {
     public final static DataType<?> BIGINT = new DataType<>("BIGINT", true, true, true, true, true, true, null, Object::toString, ObjConv::toLong,Long.class, 104);
     public final static DataType<?> FLOAT = new DataType<>("FLOAT", true, true, true, true, true, true, null, Object::toString, ObjConv::toFloat, Float.class, 100);
     public final static DataType<?> DOUBLE = new DataType<>("DOUBLE", true, true, true, true, true, true, null, Object::toString, ObjConv::toDouble, Double.class, 101);
-    public final static DataType<?> BOOLEAN = new DataType<>("boolean", false, false, false, false, true, true, null, Object::toString, ObjConv::toBoolean, Boolean.class, 100);
-    public final static DataType<?> DATETIME = new DataType<>("DATETIME", false, false, false, true, true, true, null, ObjConv::convDateTime, ObjConv::toDateTime, Date.class, 100);
-    public final static DataType<?> DATE = new DataType<>("DATE", false, false, false, true, true, true, null, ObjConv::convDate, ObjConv::toDate, Date.class, 101);
-    public final static DataType<?> TIME = new DataType<>("TIME", false, false, false, true, true, true, null, ObjConv::convTime, ObjConv::toTime, Date.class, 102);
-    public final static DataType<?> VARCHAR = new DataType<>("VARCHAR", false, false, false, true, true, true, 255, ObjConv::convString, String::valueOf, String.class, 110);
-    public final static DataType<?> TEXT = new DataType<>("TEXT", false, false, false, true, false, true, 65535,  ObjConv::convString, String::valueOf, String.class, 110);
-    public final static DataType<?> LONGTEXT = new DataType<>("LONGTEXT", false, false, false, true, false, true, 2147483647, ObjConv::convString, String::valueOf, String.class, 110);
+    public final static DataType<?> BOOLEAN = new DataType<>("boolean", false, false, false, false, true, false, null, Object::toString, ObjConv::toBoolean, Boolean.class, 100);
+    public final static DataType<?> DATETIME = new DataType<>("DATETIME", false, false, false, true, true, false, null, ObjConv::convDateTime, ObjConv::toDateTime, Date.class, 100);
+    public final static DataType<?> DATE = new DataType<>("DATE", false, false, false, true, true, false, null, ObjConv::convDate, ObjConv::toDate, Date.class, 101);
+    public final static DataType<?> TIME = new DataType<>("TIME", false, false, false, true, true, false, null, ObjConv::convTime, ObjConv::toTime, Date.class, 102);
+    public final static DataType<?> VARCHAR = new DataType<>("VARCHAR", false, false, false, true, true, false, 255, ObjConv::convString, String::valueOf, String.class, 110);
+    public final static DataType<?> TEXT = new DataType<>("TEXT", false, false, false, true, false, false, 65535,  ObjConv::convString, String::valueOf, String.class, 110);
+    public final static DataType<?> LONGTEXT = new DataType<>("LONGTEXT", false, false, false, true, false, false, 2147483647, ObjConv::convString, String::valueOf, String.class, 110);
 
     private final String typeName;
 
