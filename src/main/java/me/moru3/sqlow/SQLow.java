@@ -90,7 +90,7 @@ public class SQLow {
      * @throws SQLException SQL Error
      */
     public static Connection connect(File file) throws SQLException {
-        connection = DriverManager.getConnection(file.getAbsolutePath());
+        connection = DriverManager.getConnection("jdbc:sqlite:" + file.getAbsolutePath());
         SQLow.url = file.getAbsolutePath();
         databaseType = DatabaseType.SQLITE;
         return connection;

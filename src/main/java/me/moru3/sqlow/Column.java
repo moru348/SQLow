@@ -28,7 +28,7 @@ public class Column implements IColumn {
         } else {
             result.append(type.getTypeName());
         }
-        if(zerofill&&type.getZeroFill()) result.append(" ZEROFILL");
+        if(zerofill&&type.getZeroFill()&& SQLow.getDatabaseType()!=DatabaseType.SQLITE) result.append(" ZEROFILL");
         // if(unsigned&&type.getUnsigned()) result.append(" UNSIGNED");
         if(notnull) {
             result.append(" NOT");

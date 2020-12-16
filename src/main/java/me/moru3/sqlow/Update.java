@@ -42,7 +42,7 @@ public class Update {
     }
 
     public void send() throws IllegalArgumentException, NoPropertyException, SQLException {
-        if(SQLow.getConnection()==null) throw new NoPropertyException("No connection has been created with SQ Low (Connection).");
+        if(SQLow.getConnection()==null) throw new NoPropertyException("No connection has been created with SQLow (Connection).");
         PreparedStatement ps = SQLow.getConnection().prepareStatement(build());
         ps.executeUpdate();
         ps.close();
