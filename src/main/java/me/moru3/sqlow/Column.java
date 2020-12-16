@@ -12,6 +12,7 @@ public class Column implements IColumn {
     private boolean primarykey;
     private Object defaultvalue;
     private Object property;
+    private boolean uniqueindex;
 
     public Column(@NotNull String name, @NotNull DataType<?> type) {
         this.name = name;
@@ -30,12 +31,9 @@ public class Column implements IColumn {
         }
         if(zerofill&&type.getZeroFill()&& SQLow.getDatabaseType()!=DatabaseType.SQLITE) result.append(" ZEROFILL");
         // if(unsigned&&type.getUnsigned()) result.append(" UNSIGNED");
-        if(notnull) {
-            result.append(" NOT");
+        if(notnull) { result.append(" NOT");
         } else {
-            if(primarykey) {
-                result.append(" NOT");
-            }
+            if(primarykey) { result.append(" NOT"); }
         }
         result.append(" NULL");
         if(SQLow.getDatabaseType()==DatabaseType.SQLITE&&primarykey) {result.append(" PRIMARY KEY");}
@@ -115,4 +113,11 @@ public class Column implements IColumn {
         this.property = obj;
         return this;
     }
+
+    public Column setUniqueIndex(boolean bool) {
+        this.uniqueindex = bool;
+        return this;
+    }
+
+    public boolean isUniqueindex() { return uniqueindex; }
 }

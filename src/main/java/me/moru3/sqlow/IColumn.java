@@ -60,5 +60,11 @@ public interface IColumn {
      * @return column
      */
     Column setProperty(@NotNull Object obj);
+
+    /**
+     * @param bool Whether to make it unique index
+     * @return column
+     */
+    Column setUniqueIndex(boolean bool);
 }
 

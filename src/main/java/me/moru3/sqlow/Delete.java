@@ -11,7 +11,7 @@ import java.util.*;
 public class Delete extends ObjConv {
     private final String tableName;
     private final Where where;
-    private Set<String> conditions = new HashSet<String>();
+    private final Set<String> conditions = new HashSet<>();
 
     public Delete(@NotNull String tableName, @NotNull Where where) {
         this.tableName = tableName;
