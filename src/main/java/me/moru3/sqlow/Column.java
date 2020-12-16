@@ -42,7 +42,7 @@ public class Column implements IColumn {
         if(defaultvalue!=null&&type.getDefault()) {
             result.append(" DEFAULT ").append(type.getConvM().apply(defaultvalue));
         }
-        if(SQLow.getDatabaseType()==DatabaseType.SQLITE) { result.append(" UNIQUE"); }
+        if(SQLow.getDatabaseType()==DatabaseType.SQLITE&&isUniqueindex()) { result.append(" UNIQUE"); }
         return new String(result);
     }
 
