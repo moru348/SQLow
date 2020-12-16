@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'me.moru3.sqlow'
-version '1.8.8'
+version '1.8.9'
 
 repositories {
     mavenCentral()
@@ -30,7 +30,7 @@ publishing {
         target(MavenPublication) {
             groupId 'me.moru3'
             artifactId 'sqlow'
-            version '1.8.8'
+            version '1.8.9'
             from components.java
             artifact tasks.sourceJar
         }
