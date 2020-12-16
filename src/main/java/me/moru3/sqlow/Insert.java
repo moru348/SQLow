@@ -45,10 +45,15 @@ public class Insert extends ObjConv {
                 .append(" VALUES (")
                 .append(valueJoiner)
                 .append(")");
-        if(ignoreType==IgnoreType.UPDATE&& SQLow.getDatabaseType()!=DatabaseType.SQLITE) {
+        if(ignoreType!=IgnoreType.UPDATE) return new String(result);
+        StringJoiner updateJoiner = new StringJoiner(",");
+        if(SQLow.getDatabaseType()!=DatabaseType.SQLITE) {
             result.append(" ON DUPLICATE KEY UPDATE ");
-            StringJoiner updateJoiner = new StringJoiner(",");
-            this.values.forEach((key, value) -> updateJoiner.add(key + "="  + "value"));
+            this.values.forEach((key, value) -> updateJoiner.add(key + "="  + value));
+            result.append(updateJoiner);
+        } else {
+            result.append(" ON CONFLICT DO UPDATE SET ");
+            this.values.forEach((key, value) -> updateJoiner.add(key + "="  + value));
             result.append(updateJoiner);
         }
         return new String(result);
