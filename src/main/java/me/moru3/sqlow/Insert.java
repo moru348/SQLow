@@ -28,10 +28,6 @@ public class Insert extends ObjConv {
         values.put(key, ObjConv.ObjToType(value).getConvM().apply(value));
         return this;
     }
-    public Insert addValue(String key, String value) {
-        values.put(key, value);
-        return this;
-    }
 
     public String build(boolean force) {
         StringJoiner keyJoiner = new StringJoiner(",");
@@ -45,7 +41,8 @@ public class Insert extends ObjConv {
                 .append(tableName)
                 .append(" (").append(keyJoiner).append(")")
                 .append(" VALUES (")
-                .append(valueJoiner);
+                .append(valueJoiner)
+                .append(")");
         return new String(result);
     }
 
