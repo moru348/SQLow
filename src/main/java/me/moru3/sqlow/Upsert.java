@@ -6,14 +6,11 @@ import org.jetbrains.annotations.NotNull;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.StringJoiner;
+import java.util.*;
 
 public class Upsert {
     private final String tableName;
-    private List<String> keys;
+    private final List<String> keys = new ArrayList<>();
     private final Map<String, String> values = new HashMap<>();
     public Upsert(@NotNull String tableName) {
         this.tableName = tableName;
