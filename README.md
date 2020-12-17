@@ -1,9 +1,9 @@
 # SQLow
 I've been addicted to Java lately, so I'm rewriting the SQLow I wrote for Go.
-## 特徴
-### ・簡単
+## Feature
+### ・Easy
 <b>Easily connect to SQL and generate syntax etc. without mistakes.</b><br><br>
-例: ```Table table = new Table("test", new Column[]{new Column("id", DataType.BIGINT).setAutoIncrement(true).setPrimaryKey(true), new Column("name", DataType.TEXT).setNotNull(true)});```
+例: ```Table table = new Table("test").addColumn(new Column("id", DataType.BIGINT).setAutoIncrement(true).setPrimaryKey(true)).addColumn(new Column("id", DataType.VARCHAR).setNotNull(true).setProperty(32));```
 <br>
 <br>
 ### ・Scalability
