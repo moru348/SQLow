@@ -46,19 +46,13 @@ public class Upsert {
      */
     public String build() {
         StringBuilder result = new StringBuilder();
-        result.append(new Insert(tableName, values));
+        result.append(new Insert(tableName, values).build(true));
         StringJoiner updateJoiner = new StringJoiner(",");
         StringJoiner keyJoiner = new StringJoiner(",");
         keys.forEach(keyJoiner::add);
-        if(SQLow.getDatabaseType()!=DatabaseType.SQLITE) {
-            result.append(" ON DUPLICATE KEY UPDATE ");
-            this.values.forEach((key, value) -> updateJoiner.add(key + "="  + value));
-            result.append(updateJoiner);
-        } else {
-            result.append(" ON CONFLICT(").append(keyJoiner).append(") DO UPDATE SET ");
-            this.values.forEach((key, value) -> updateJoiner.add(key + "="  + value));
-            result.append(updateJoiner);
-        }
+        result.append(SQLow.getDatabaseType()!=DatabaseType.SQLITE?" ON DUPLICATE KEY UPDATE ":") DO UPDATE SET ");
+        this.values.forEach((key, value) -> updateJoiner.add(key + "="  + value));
+        result.append(updateJoiner);
         return new String(result);
     }
 
