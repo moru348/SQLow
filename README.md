@@ -1,23 +1,17 @@
 # SQLow
-最近JavaにハマってたのでGo向けに書いたSQLowを書き直してます。
+I've been addicted to Java lately, so I'm rewriting the SQLow I wrote for Go.
 ## 特徴
 ### ・簡単
-<b>SQLに簡単に接続し、構文などをミスなく生成できます。</b><br><br>
+<b>Easily connect to SQL and generate syntax etc. without mistakes.</b><br><br>
 例: ```Table table = new Table("test", new Column[]{new Column("id", DataType.BIGINT).setAutoIncrement(true).setPrimaryKey(true), new Column("name", DataType.TEXT).setNotNull(true)});```
 <br>
 <br>
-### ・拡張性
-<b>オリジナルの型を追加しString, Intなど以外に独自の型も使用できます。</b><br><br>
-例: ここでは Conv クラス上に String fromItemStack(Object itemStack), ItemStack toItemStack(Object itemStack) メソッドがあると仮定しています。<br>※ItemStackはBukkitPluginのオリジナルの型です
+### ・Scalability
+<b>Add own types and use your own types as well as Strings, Ints, etc.</b><br><br>
+例: It is assumed here that there are String fromItemStack(Object itemStack) and ItemStack toItemStack(Object itemStack) methods on the Conv class. <br> * ItemStack is the original type of Bukkit Plugin.
 <br>
 ```DataType<?> ITEMSTACK = new DataType<>("LONGTEXT", false, false, false, false, false, 2147483647, Conv::fromItemStack, Conv::toItemStack, ItemStack.class, 1);```
 <br>
-### PK, AI はSQLiteの使用になっているためPKは複数設定できますがAIを設定するとPKの数が1つに制限されます。これはいつか修正予定です。
 <br>
-<br>
-SQLiteについて。<br>
-SQLiteはDatabaseTypeを使用せずにnew SQLow("url")のように使用してください。
-また、現在はSQLiteの構文を完全にサポートしていないため一部のプロパティを設定するとエラーが発生する可能性があります。
-
 ```https://repo.moru3.dev/```<br>
-```me.moru3:sqlow:1.8.12```
+```me.moru3:sqlow:2.15.1```
