@@ -8,15 +8,15 @@ import java.util.*;
 import java.util.function.Function;
 
 public class DataType<T> {
-    public final static DataType<?> TINYINT = new DataType<>("TINYINT", true, true, true, true, true, true, null, Object::toString, ObjConv::toByte, Byte.class, 100);
-    public final static DataType<?> SMALLINT = new DataType<>("SHORT", true, true, true, true, true, true, null, Object::toString, ObjConv::toShort, Short.class, 101);
-    public final static DataType<?> MEDIUMINT = new DataType<>("MEDIUMINT", true, true, true, true, true, true, null, Object::toString, ObjConv::toInt, Integer.class, 102);
-    public final static DataType<?> INT = new DataType<>("INTEGER", true, true, true, true, true, true, null, Object::toString, ObjConv::toInt, Integer.class, 103);
-    public final static DataType<?> INTEGER = new DataType<>("INTEGER", true, true, true, true, true, true, null, Object::toString, ObjConv::toInt, Integer.class, 103);
-    public final static DataType<?> BIGINT = new DataType<>("BIGINT", true, true, true, true, true, true, null, Object::toString, ObjConv::toLong,Long.class, 104);
-    public final static DataType<?> FLOAT = new DataType<>("FLOAT", true, true, true, true, true, true, null, Object::toString, ObjConv::toFloat, Float.class, 100);
-    public final static DataType<?> DOUBLE = new DataType<>("DOUBLE", true, true, true, true, true, true, null, Object::toString, ObjConv::toDouble, Double.class, 101);
-    public final static DataType<?> BOOLEAN = new DataType<>("boolean", false, false, false, false, true, false, null, Object::toString, ObjConv::toBoolean, Boolean.class, 100);
+    public final static DataType<?> TINYINT = new DataType<>("TINYINT", true, true, true, true, true, true, null, i -> String.valueOf(ObjConv.toByte(i)), ObjConv::toByte, Byte.class, 100);
+    public final static DataType<?> SMALLINT = new DataType<>("SHORT", true, true, true, true, true, true, null, i -> String.valueOf(ObjConv.toShort(i)), ObjConv::toShort, Short.class, 101);
+    public final static DataType<?> MEDIUMINT = new DataType<>("MEDIUMINT", true, true, true, true, true, true, null, i -> String.valueOf(ObjConv.toInt(i)), ObjConv::toInt, Integer.class, 102);
+    public final static DataType<?> INT = new DataType<>("INTEGER", true, true, true, true, true, true, null, i -> String.valueOf(ObjConv.toInt(i)), ObjConv::toInt, Integer.class, 103);
+    public final static DataType<?> INTEGER = new DataType<>("INTEGER", true, true, true, true, true, true, null, i -> String.valueOf(ObjConv.toInt(i)), ObjConv::toInt, Integer.class, 103);
+    public final static DataType<?> BIGINT = new DataType<>("BIGINT", true, true, true, true, true, true, null, i -> String.valueOf(ObjConv.toLong(i)), ObjConv::toLong,Long.class, 104);
+    public final static DataType<?> FLOAT = new DataType<>("FLOAT", true, true, true, true, true, true, null, i -> String.valueOf(ObjConv.toFloat(i)), ObjConv::toFloat, Float.class, 100);
+    public final static DataType<?> DOUBLE = new DataType<>("DOUBLE", true, true, true, true, true, true, null, i -> String.valueOf(ObjConv.toDouble(i)), ObjConv::toDouble, Double.class, 101);
+    public final static DataType<?> BOOLEAN = new DataType<>("BOOLEAN", false, false, false, false, true, false, null, i -> String.valueOf(ObjConv.toBoolean(i)), ObjConv::toBoolean, Boolean.class, 100);
     public final static DataType<?> DATETIME = new DataType<>("DATETIME", false, false, false, true, true, false, null, ObjConv::convDateTime, ObjConv::toDateTime, Date.class, 100);
     public final static DataType<?> DATE = new DataType<>("DATE", false, false, false, true, true, false, null, ObjConv::convDate, ObjConv::toDate, Date.class, 101);
     public final static DataType<?> TIME = new DataType<>("TIME", false, false, false, true, true, false, null, ObjConv::convTime, ObjConv::toTime, Date.class, 102);

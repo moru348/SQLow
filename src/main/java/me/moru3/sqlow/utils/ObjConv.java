@@ -10,7 +10,7 @@ import java.util.Date;
 
 public class ObjConv {
     public static String convString(Object obj) {
-        return "\"" + obj.toString() + "\"";
+        return "\"" + escape(obj.toString()) + "\"";
     }
 
     public static String convDateTime(Object obj) {
@@ -89,5 +89,9 @@ public class ObjConv {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static String escape(String string) {
+        return string.replace("'", "\\'").replace("\"", "\\\"");
     }
 }
