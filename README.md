@@ -16,4 +16,4 @@ example: It is assumed here that there are String fromItemStack(Object itemStack
 <br>
 <br>
 ```https://repo.moru3.dev/```<br>
-```me.moru3:sqlow:2.15.1```
+```me.moru3:sqlow:2.15.8```
