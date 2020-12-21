@@ -9,7 +9,7 @@ example: ```Table table = new Table("test").addColumn(new Column("id", DataType.
 <br>
 <br>
 ### ・Scalability
-<b>Add own types and use your own types as well as Strings, Ints, etc.</b><br><br>
+<b>Add own types and use your own types as well as Strings, Int, etc.</b><br><br>
 example: It is assumed here that there are String fromItemStack(Object itemStack) and ItemStack toItemStack(Object itemStack) methods on the Conv class. <br> * ItemStack is the original type of Bukkit Plugin.
 <br>
 ```DataType<?> ITEMSTACK = new DataType<>("LONGTEXT", false, false, false, false, false, 2147483647, Conv::fromItemStack, Conv::toItemStack, ItemStack.class, 1);```
