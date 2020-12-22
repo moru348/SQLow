@@ -1,5 +1,7 @@
 ## Currently in beta. There may be bugs.
 
+Learn more: https://github.com/moru348/SQLow/wiki
+
 # SQLow
 I've been addicted to Java lately, so I'm rewriting the SQLow I wrote for Go.
 ## Feature
