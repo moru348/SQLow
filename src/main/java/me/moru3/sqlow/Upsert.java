@@ -50,7 +50,7 @@ public class Upsert {
         StringJoiner updateJoiner = new StringJoiner(",");
         StringJoiner keyJoiner = new StringJoiner(",");
         keys.forEach(keyJoiner::add);
-        result.append(SQLow.getDatabaseType()!=DatabaseType.SQLITE?" ON DUPLICATE KEY UPDATE ":" DO UPDATE SET ");
+        result.append(SQLow.getDatabaseType()!=DatabaseType.SQLITE?" ON DUPLICATE KEY UPDATE ":" ON CONFLICT(" + keyJoiner + ") DO UPDATE SET ");
         this.values.forEach((key, value) -> updateJoiner.add(key + "="  + value));
         result.append(updateJoiner);
         return new String(result);
