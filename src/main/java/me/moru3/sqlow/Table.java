@@ -41,7 +41,7 @@ public class Table implements ITable {
         columns.stream().map(Column::build).forEach(columnList::add);
         Arrays.stream(primaryKeys).map(Column::getName).forEach(primaryKeyList::add);
         if(SQLow.getDatabaseType()==DatabaseType.SQLITE&&autoIncrements.length>0) primaryKeys = new Column[]{};
-        if(primaryKeys.length>=1) columnList.add("PRIMARY KEY (" + primaryKeyList + ")");
+        if(primaryKeys.length>=1) columnList.add("PRIMARY KEY (`" + primaryKeyList + "`)");
         if(uniqueIndexes.length>=1&&SQLow.getDatabaseType()!=DatabaseType.SQLITE) {
             Arrays.stream(uniqueIndexes).forEach(i -> {
                 columnList.add("UNIQUE `" + name + "_UNIQUE` (`" + i.getName() + "` ASC) VISIBLE");
