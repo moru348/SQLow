@@ -16,7 +16,7 @@ public class SQLow {
 
     public static Connection getConnection() throws SQLException {
         if(connection==null) throw new NullPointerException("getConnection() was called with no connection established.");
-        if(connection.isClosed()) { connection = reconnect(); }
+        if(connection.isClosed() || !connection.isValid(5000)) { connection = reconnect(); }
         return connection;
     }
 
