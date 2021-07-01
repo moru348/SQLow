@@ -49,7 +49,7 @@ public class SQLow {
      * @return Connection
      * @throws SQLException SQL Error
      */
-    public static Connection connect(DatabaseType dbtype, String host, int port, String userName, String password, String databaseName, TreeMap<String, String> properties) throws SQLException {
+    public static Connection connect(DatabaseType dbtype, String host, int port, String userName, String password, String databaseName, Map<String, String> properties) throws SQLException {
         StringBuilder url = new StringBuilder();
         url.append("jdbc:").append(dbtype.toString().toLowerCase()).append("://").append(host).append(":").append(port).append("/").append(databaseName);
         ArrayList<String> property = new ArrayList<>();
